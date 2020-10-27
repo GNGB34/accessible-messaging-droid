@@ -1,0 +1,21 @@
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/bin/iPhoneSimulator/Debug/AccessibleMessaging.exe
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/bin/iPhoneSimulator/Debug/AccessibleMessaging.pdb
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/bin/iPhoneSimulator/Debug/Xamarin.Essentials.dll
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/bin/iPhoneSimulator/Debug/Xamarin.Essentials.pdb
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/bin/iPhoneSimulator/Debug/Firebase.Core.dll
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/bin/iPhoneSimulator/Debug/Firebase.Installations.dll
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/bin/iPhoneSimulator/Debug/Firebase.InstanceID.dll
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/bin/iPhoneSimulator/Debug/Firebase.MLKit.Common.dll
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/bin/iPhoneSimulator/Debug/Firebase.MLKit.Vision.dll
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/obj/iPhoneSimulator/Debug/device-builds/ipod touch (7th generation)-14.0/ibtool/_BundleResourceWithLogicalName.items
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/obj/iPhoneSimulator/Debug/device-builds/ipod touch (7th generation)-14.0/actool/_PartialAppManifest.items
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/obj/iPhoneSimulator/Debug/device-builds/ipod touch (7th generation)-14.0/actool/_BundleResourceWithLogicalName.items
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/obj/iPhoneSimulator/Debug/device-builds/ipod touch (7th generation)-14.0/coremlc/_PartialAppManifest.items
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/obj/iPhoneSimulator/Debug/device-builds/ipod touch (7th generation)-14.0/coremlc/_BundleResourceWithLogicalName.items
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/obj/iPhoneSimulator/Debug/device-builds/ipod touch (7th generation)-14.0/optimized/GoogleService-Info.plist
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/obj/iPhoneSimulator/Debug/device-builds/ipod touch (7th generation)-14.0/optimized/
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/obj/iPhoneSimulator/Debug/AccessibleMessaging.csprojAssemblyReference.cache
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/obj/iPhoneSimulator/Debug/AccessibleMessaging.csproj.CoreCompileInputs.cache
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/obj/iPhoneSimulator/Debug/AccessibleMessaging.csproj.CopyComplete
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/obj/iPhoneSimulator/Debug/AccessibleMessaging.exe
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/obj/iPhoneSimulator/Debug/AccessibleMessaging.pdb

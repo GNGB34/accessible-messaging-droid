@@ -23,5 +23,10 @@ namespace AccessibleMessaging.Services
                 return bytes;
             }
         }
+
+        public UIImage convertToUIImage(byte[] myByteArray)
+        {
+            return UIImage.LoadFromData(NSData.FromArray(myByteArray));
+        }
     }
 }

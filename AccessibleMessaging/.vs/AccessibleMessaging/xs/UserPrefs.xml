@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{47E5CC1A-2799-4D96-88F8-BB09CEAEA0E2}|Default">
+  <MonoDevelop.Ide.ItemProperties.AccessibleMessaging PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.FA5C335C-E1F1-4D16-A4E7-0C5A6AD4AE7A" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Services/ScreenshotService.cs">
+    <Files>
+      <File FileName="Services/ScreenshotProcessing.cs" Line="25" Column="1" />
+      <File FileName="Services/ScreenshotService.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="AccessibleMessaging" expanded="True">
+            <Node name="AccessibleMessaging" expanded="True">
+              <Node name="Services" expanded="True">
+                <Node name="ScreenshotService.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

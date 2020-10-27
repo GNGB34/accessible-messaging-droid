@@ -1,0 +1,685 @@
+{
+  "version": 3,
+  "targets": {
+    "Xamarin.iOS,Version=v1.0": {
+      "Xamarin.Build.Download/0.10.0": {
+        "type": "package",
+        "build": {
+          "buildTransitive/Xamarin.Build.Download.props": {},
+          "buildTransitive/Xamarin.Build.Download.targets": {}
+        }
+      },
+      "Xamarin.Essentials/1.5.3.2": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "OpenTK-1.0",
+          "System.Drawing.Common.dll"
+        ],
+        "compile": {
+          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.Core/6.6.6": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.Core.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.Core.dll": {}
+        },
+        "build": {
+          "buildTransitive/Xamarin.Firebase.iOS.Core.targets": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.Installations/1.1.1": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.Installations.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.Installations.dll": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.InstanceID/4.3.3": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6",
+          "Xamarin.Firebase.iOS.Installations": "1.1.1"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.InstanceID.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.InstanceID.dll": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.MLKit.Common/0.19.0": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6",
+          "Xamarin.Firebase.iOS.Installations": "1.1.1",
+          "Xamarin.Firebase.iOS.InstanceID": "4.3.3"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.MLKit.Common.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.MLKit.Common.dll": {}
+        },
+        "build": {
+          "buildTransitive/Xamarin.Firebase.iOS.MLKit.Common.targets": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.MLKit.Vision/0.19.0": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6",
+          "Xamarin.Firebase.iOS.Installations": "1.1.1",
+          "Xamarin.Firebase.iOS.InstanceID": "4.3.3",
+          "Xamarin.Firebase.iOS.MLKit.Common": "0.19.0"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.MLKit.Vision.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.MLKit.Vision.dll": {}
+        },
+        "build": {
+          "buildTransitive/Xamarin.Firebase.iOS.MLKit.Vision.targets": {}
+        }
+      }
+    },
+    "Xamarin.iOS,Version=v1.0/win": {
+      "Xamarin.Build.Download/0.10.0": {
+        "type": "package",
+        "build": {
+          "buildTransitive/Xamarin.Build.Download.props": {},
+          "buildTransitive/Xamarin.Build.Download.targets": {}
+        }
+      },
+      "Xamarin.Essentials/1.5.3.2": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "OpenTK-1.0",
+          "System.Drawing.Common.dll"
+        ],
+        "compile": {
+          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.Core/6.6.6": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.Core.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.Core.dll": {}
+        },
+        "build": {
+          "buildTransitive/Xamarin.Firebase.iOS.Core.targets": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.Installations/1.1.1": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.Installations.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.Installations.dll": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.InstanceID/4.3.3": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6",
+          "Xamarin.Firebase.iOS.Installations": "1.1.1"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.InstanceID.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.InstanceID.dll": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.MLKit.Common/0.19.0": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6",
+          "Xamarin.Firebase.iOS.Installations": "1.1.1",
+          "Xamarin.Firebase.iOS.InstanceID": "4.3.3"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.MLKit.Common.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.MLKit.Common.dll": {}
+        },
+        "build": {
+          "buildTransitive/Xamarin.Firebase.iOS.MLKit.Common.targets": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.MLKit.Vision/0.19.0": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6",
+          "Xamarin.Firebase.iOS.Installations": "1.1.1",
+          "Xamarin.Firebase.iOS.InstanceID": "4.3.3",
+          "Xamarin.Firebase.iOS.MLKit.Common": "0.19.0"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.MLKit.Vision.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.MLKit.Vision.dll": {}
+        },
+        "build": {
+          "buildTransitive/Xamarin.Firebase.iOS.MLKit.Vision.targets": {}
+        }
+      }
+    },
+    "Xamarin.iOS,Version=v1.0/win-x64": {
+      "Xamarin.Build.Download/0.10.0": {
+        "type": "package",
+        "build": {
+          "buildTransitive/Xamarin.Build.Download.props": {},
+          "buildTransitive/Xamarin.Build.Download.targets": {}
+        }
+      },
+      "Xamarin.Essentials/1.5.3.2": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "OpenTK-1.0",
+          "System.Drawing.Common.dll"
+        ],
+        "compile": {
+          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.Core/6.6.6": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.Core.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.Core.dll": {}
+        },
+        "build": {
+          "buildTransitive/Xamarin.Firebase.iOS.Core.targets": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.Installations/1.1.1": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.Installations.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.Installations.dll": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.InstanceID/4.3.3": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6",
+          "Xamarin.Firebase.iOS.Installations": "1.1.1"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.InstanceID.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.InstanceID.dll": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.MLKit.Common/0.19.0": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6",
+          "Xamarin.Firebase.iOS.Installations": "1.1.1",
+          "Xamarin.Firebase.iOS.InstanceID": "4.3.3"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.MLKit.Common.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.MLKit.Common.dll": {}
+        },
+        "build": {
+          "buildTransitive/Xamarin.Firebase.iOS.MLKit.Common.targets": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.MLKit.Vision/0.19.0": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6",
+          "Xamarin.Firebase.iOS.Installations": "1.1.1",
+          "Xamarin.Firebase.iOS.InstanceID": "4.3.3",
+          "Xamarin.Firebase.iOS.MLKit.Common": "0.19.0"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.MLKit.Vision.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.MLKit.Vision.dll": {}
+        },
+        "build": {
+          "buildTransitive/Xamarin.Firebase.iOS.MLKit.Vision.targets": {}
+        }
+      }
+    },
+    "Xamarin.iOS,Version=v1.0/win-x86": {
+      "Xamarin.Build.Download/0.10.0": {
+        "type": "package",
+        "build": {
+          "buildTransitive/Xamarin.Build.Download.props": {},
+          "buildTransitive/Xamarin.Build.Download.targets": {}
+        }
+      },
+      "Xamarin.Essentials/1.5.3.2": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "OpenTK-1.0",
+          "System.Drawing.Common.dll"
+        ],
+        "compile": {
+          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.Core/6.6.6": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.Core.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.Core.dll": {}
+        },
+        "build": {
+          "buildTransitive/Xamarin.Firebase.iOS.Core.targets": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.Installations/1.1.1": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.Installations.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.Installations.dll": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.InstanceID/4.3.3": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6",
+          "Xamarin.Firebase.iOS.Installations": "1.1.1"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.InstanceID.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.InstanceID.dll": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.MLKit.Common/0.19.0": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6",
+          "Xamarin.Firebase.iOS.Installations": "1.1.1",
+          "Xamarin.Firebase.iOS.InstanceID": "4.3.3"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.MLKit.Common.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.MLKit.Common.dll": {}
+        },
+        "build": {
+          "buildTransitive/Xamarin.Firebase.iOS.MLKit.Common.targets": {}
+        }
+      },
+      "Xamarin.Firebase.iOS.MLKit.Vision/0.19.0": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.10.0",
+          "Xamarin.Firebase.iOS.Core": "6.6.6",
+          "Xamarin.Firebase.iOS.Installations": "1.1.1",
+          "Xamarin.Firebase.iOS.InstanceID": "4.3.3",
+          "Xamarin.Firebase.iOS.MLKit.Common": "0.19.0"
+        },
+        "frameworkAssemblies": [
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/Firebase.MLKit.Vision.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Firebase.MLKit.Vision.dll": {}
+        },
+        "build": {
+          "buildTransitive/Xamarin.Firebase.iOS.MLKit.Vision.targets": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Xamarin.Build.Download/0.10.0": {
+      "sha512": "XiQNxx6Jox00O80sJRlZv6jXDZ/r3KC7SMwzQNQcD1gZ+vsZyJH3LcSpdJ5NiZhRrWZlTGNSbooHsOBF7lBOyQ==",
+      "type": "package",
+      "path": "xamarin.build.download/0.10.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "THIRD-PARTY-NOTICE.txt",
+        "build/Microsoft.Win32.Registry.dll",
+        "build/Newtonsoft.Json.dll",
+        "build/Xamarin.Build.Download.dll",
+        "build/Xamarin.Build.Download.props",
+        "build/Xamarin.Build.Download.targets",
+        "buildTransitive/Microsoft.Win32.Registry.dll",
+        "buildTransitive/Newtonsoft.Json.dll",
+        "buildTransitive/Xamarin.Build.Download.dll",
+        "buildTransitive/Xamarin.Build.Download.props",
+        "buildTransitive/Xamarin.Build.Download.targets",
+        "xamarin.build.download.0.10.0.nupkg.sha512",
+        "xamarin.build.download.nuspec"
+      ]
+    },
+    "Xamarin.Essentials/1.5.3.2": {
+      "sha512": "BSLgDJUOPFRwTpQaftM+s4qb/MsTjrqXulEYDOcK6KF3i0Orf75zo3RwRfqnQ8WfpoEFxW/v0jgcPWCvOMgHxg==",
+      "type": "package",
+      "path": "xamarin.essentials/1.5.3.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "icon.png",
+        "lib/monoandroid10.0/Xamarin.Essentials.dll",
+        "lib/monoandroid10.0/Xamarin.Essentials.pdb",
+        "lib/monoandroid10.0/Xamarin.Essentials.xml",
+        "lib/monoandroid80/Xamarin.Essentials.dll",
+        "lib/monoandroid80/Xamarin.Essentials.pdb",
+        "lib/monoandroid80/Xamarin.Essentials.xml",
+        "lib/monoandroid81/Xamarin.Essentials.dll",
+        "lib/monoandroid81/Xamarin.Essentials.pdb",
+        "lib/monoandroid81/Xamarin.Essentials.xml",
+        "lib/monoandroid90/Xamarin.Essentials.dll",
+        "lib/monoandroid90/Xamarin.Essentials.pdb",
+        "lib/monoandroid90/Xamarin.Essentials.xml",
+        "lib/netstandard1.0/Xamarin.Essentials.dll",
+        "lib/netstandard1.0/Xamarin.Essentials.pdb",
+        "lib/netstandard1.0/Xamarin.Essentials.xml",
+        "lib/netstandard2.0/Xamarin.Essentials.dll",
+        "lib/netstandard2.0/Xamarin.Essentials.pdb",
+        "lib/netstandard2.0/Xamarin.Essentials.xml",
+        "lib/tizen40/Xamarin.Essentials.dll",
+        "lib/tizen40/Xamarin.Essentials.pdb",
+        "lib/tizen40/Xamarin.Essentials.xml",
+        "lib/uap10.0.16299/Xamarin.Essentials.dll",
+        "lib/uap10.0.16299/Xamarin.Essentials.pdb",
+        "lib/uap10.0.16299/Xamarin.Essentials.pri",
+        "lib/uap10.0.16299/Xamarin.Essentials.xml",
+        "lib/xamarinios10/Xamarin.Essentials.dll",
+        "lib/xamarinios10/Xamarin.Essentials.pdb",
+        "lib/xamarinios10/Xamarin.Essentials.xml",
+        "lib/xamarintvos10/Xamarin.Essentials.dll",
+        "lib/xamarintvos10/Xamarin.Essentials.pdb",
+        "lib/xamarintvos10/Xamarin.Essentials.xml",
+        "lib/xamarinwatchos10/Xamarin.Essentials.dll",
+        "lib/xamarinwatchos10/Xamarin.Essentials.pdb",
+        "lib/xamarinwatchos10/Xamarin.Essentials.xml",
+        "readme.txt",
+        "xamarin.essentials.1.5.3.2.nupkg.sha512",
+        "xamarin.essentials.nuspec"
+      ]
+    },
+    "Xamarin.Firebase.iOS.Core/6.6.6": {
+      "sha512": "GM43jhKOjzs2AwTNxPA3OFW/UVAM7oBWfYn0m9c56oOAAlPdpO7LebWXkLNa/vcFv9gtfCBrVVl+QIk8miwTDw==",
+      "type": "package",
+      "path": "xamarin.firebase.ios.core/6.6.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.md",
+        "THIRD-PARTY-NOTICES.txt",
+        "build/Xamarin.Firebase.iOS.Core.targets",
+        "buildTransitive/Xamarin.Firebase.iOS.Core.targets",
+        "firebaseioscore_128x128.png",
+        "lib/xamarinios10/Firebase.Core.dll",
+        "xamarin.firebase.ios.core.6.6.6.nupkg.sha512",
+        "xamarin.firebase.ios.core.nuspec"
+      ]
+    },
+    "Xamarin.Firebase.iOS.Installations/1.1.1": {
+      "sha512": "Q9u1Sw/YFJYOaRGzYxRDaWLUwsmRZkD2d8qQcvEfYx9P3WcFz5jPl38XlnZrTOwUjOdmq6ckWXJvygK7W3ZahQ==",
+      "type": "package",
+      "path": "xamarin.firebase.ios.installations/1.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.md",
+        "THIRD-PARTY-NOTICES.txt",
+        "firebaseiosinstallations_128x128.png",
+        "lib/xamarinios10/Firebase.Installations.dll",
+        "xamarin.firebase.ios.installations.1.1.1.nupkg.sha512",
+        "xamarin.firebase.ios.installations.nuspec"
+      ]
+    },
+    "Xamarin.Firebase.iOS.InstanceID/4.3.3": {
+      "sha512": "w3kUFKzpSkpQTgG3F+SJRfE1jSFxmPN2oQqECSTND+r892Q3FBRCrbZizWZ6mPElENvH3Js9HFve7Cod27fGAg==",
+      "type": "package",
+      "path": "xamarin.firebase.ios.instanceid/4.3.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.md",
+        "THIRD-PARTY-NOTICES.txt",
+        "firebaseiosinstanceid_128x128.png",
+        "lib/xamarinios10/Firebase.InstanceID.dll",
+        "xamarin.firebase.ios.instanceid.4.3.3.nupkg.sha512",
+        "xamarin.firebase.ios.instanceid.nuspec"
+      ]
+    },
+    "Xamarin.Firebase.iOS.MLKit.Common/0.19.0": {
+      "sha512": "dO9iSNAuavPK5GOVpDV8Vcw1VB+yCiRmFBqwGrrhPFs9au0jcTUrPTzBbdauQbwKLmmVriEMzMgJRxEc64hELQ==",
+      "type": "package",
+      "path": "xamarin.firebase.ios.mlkit.common/0.19.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.md",
+        "build/Xamarin.Firebase.iOS.MLKit.Common.targets",
+        "buildTransitive/Xamarin.Firebase.iOS.MLKit.Common.targets",
+        "firebaseiosmlkitcommon_128x128.png",
+        "lib/xamarinios10/Firebase.MLKit.Common.dll",
+        "xamarin.firebase.ios.mlkit.common.0.19.0.nupkg.sha512",
+        "xamarin.firebase.ios.mlkit.common.nuspec"
+      ]
+    },
+    "Xamarin.Firebase.iOS.MLKit.Vision/0.19.0": {
+      "sha512": "SVH9DgfLxyngWwfucHjGsnMHPzsGG5xLp9KZPhydIGS132RPEIJngpnQ59vxrtTARtkAW37O9rsfFiWlxcyuCQ==",
+      "type": "package",
+      "path": "xamarin.firebase.ios.mlkit.vision/0.19.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.md",
+        "build/Xamarin.Firebase.iOS.MLKit.Vision.targets",
+        "buildTransitive/Xamarin.Firebase.iOS.MLKit.Vision.targets",
+        "firebaseiosmlkitvision_128x128.png",
+        "lib/xamarinios10/Firebase.MLKit.Vision.dll",
+        "xamarin.firebase.ios.mlkit.vision.0.19.0.nupkg.sha512",
+        "xamarin.firebase.ios.mlkit.vision.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "Xamarin.iOS,Version=v1.0": [
+      "Xamarin.Essentials >= 1.5.3.2",
+      "Xamarin.Firebase.iOS.Core >= 6.6.6",
+      "Xamarin.Firebase.iOS.MLKit.Vision >= 0.19.0"
+    ]
+  },
+  "packageFolders": {
+    "/Users/gabecordovado/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/AccessibleMessaging.csproj",
+      "projectName": "AccessibleMessaging",
+      "projectPath": "/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/AccessibleMessaging.csproj",
+      "packagesPath": "/Users/gabecordovado/.nuget/packages/",
+      "outputPath": "/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/obj/",
+      "projectStyle": "PackageReference",
+      "skipContentFileWrite": true,
+      "configFilePaths": [
+        "/Users/gabecordovado/.config/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "xamarinios10"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "xamarinios10": {
+          "projectReferences": {}
+        }
+      }
+    },
+    "frameworks": {
+      "xamarinios10": {
+        "dependencies": {
+          "Xamarin.Essentials": {
+            "target": "Package",
+            "version": "[1.5.3.2, )"
+          },
+          "Xamarin.Firebase.iOS.Core": {
+            "target": "Package",
+            "version": "[6.6.6, )"
+          },
+          "Xamarin.Firebase.iOS.MLKit.Vision": {
+            "target": "Package",
+            "version": "[0.19.0, )"
+          }
+        }
+      }
+    },
+    "runtimes": {
+      "win": {
+        "#import": []
+      },
+      "win-x64": {
+        "#import": []
+      },
+      "win-x86": {
+        "#import": []
+      }
+    }
+  }
+}

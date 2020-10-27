@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "X12w4Al5zcYmIH9Yp/k4kJvAEC7QlMIW6S3GFJaN8VX/ZHRldsvurPlyVZCVCgMekdU/opIo78HdUfyHp4K1lQ==",
+  "success": true,
+  "projectFilePath": "/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/AccessibleMessaging.csproj",
+  "expectedPackageFiles": [
+    "/Users/gabecordovado/.nuget/packages/xamarin.build.download/0.10.0/xamarin.build.download.0.10.0.nupkg.sha512",
+    "/Users/gabecordovado/.nuget/packages/xamarin.essentials/1.5.3.2/xamarin.essentials.1.5.3.2.nupkg.sha512",
+    "/Users/gabecordovado/.nuget/packages/xamarin.firebase.ios.core/6.6.6/xamarin.firebase.ios.core.6.6.6.nupkg.sha512",
+    "/Users/gabecordovado/.nuget/packages/xamarin.firebase.ios.installations/1.1.1/xamarin.firebase.ios.installations.1.1.1.nupkg.sha512",
+    "/Users/gabecordovado/.nuget/packages/xamarin.firebase.ios.instanceid/4.3.3/xamarin.firebase.ios.instanceid.4.3.3.nupkg.sha512",
+    "/Users/gabecordovado/.nuget/packages/xamarin.firebase.ios.mlkit.common/0.19.0/xamarin.firebase.ios.mlkit.common.0.19.0.nupkg.sha512",
+    "/Users/gabecordovado/.nuget/packages/xamarin.firebase.ios.mlkit.vision/0.19.0/xamarin.firebase.ios.mlkit.vision.0.19.0.nupkg.sha512"
+  ],
+  "logs": []
+}
