@@ -1,0 +1,15 @@
+/Users/gabecordovado/Desktop/y2k/gng/AccessibleMessaging/AccessibleMessaging/bin/iPhoneSimulator/Release/AccessibleMessaging.exe
+/Library/Frameworks/Xamarin.iOS.framework/Versions/14.0.0.0/lib/mono/Xamarin.iOS/mscorlib.dll
+/Library/Frameworks/Xamarin.iOS.framework/Versions/14.0.0.0/lib/mono/Xamarin.iOS/../../64bits/Xamarin.iOS.dll
+/Library/Frameworks/Xamarin.iOS.framework/Versions/14.0.0.0/lib/mono/Xamarin.iOS/System.dll
+/Library/Frameworks/Xamarin.iOS.framework/Versions/14.0.0.0/lib/mono/Xamarin.iOS/Mono.Security.dll
+/Library/Frameworks/Xamarin.iOS.framework/Versions/14.0.0.0/lib/mono/Xamarin.iOS/System.Xml.dll
+/Library/Frameworks/Xamarin.iOS.framework/Versions/14.0.0.0/lib/mono/Xamarin.iOS/System.Numerics.dll
+/Library/Frameworks/Xamarin.iOS.framework/Versions/14.0.0.0/lib/mono/Xamarin.iOS/System.Core.dll
+/Library/Frameworks/Xamarin.iOS.framework/Versions/14.0.0.0/lib/mono/Xamarin.iOS/System.Net.Http.dll
+/Library/Frameworks/Xamarin.iOS.framework/Versions/14.0.0.0/lib/mono/Xamarin.iOS/Facades/System.Drawing.Common.dll
+/Users/gabecordovado/.nuget/packages/xamarin.firebase.ios.mlkit.vision/0.19.0/lib/xamarinios10/Firebase.MLKit.Vision.dll
+/Users/gabecordovado/.nuget/packages/xamarin.firebase.ios.core/6.6.6/lib/xamarinios10/Firebase.Core.dll
+/Users/gabecordovado/.nuget/packages/xamarin.firebase.ios.mlkit.common/0.19.0/lib/xamarinios10/Firebase.MLKit.Common.dll
+/Users/gabecordovado/.nuget/packages/xamarin.firebase.ios.installations/1.1.1/lib/xamarinios10/Firebase.Installations.dll
+/Users/gabecordovado/.nuget/packages/xamarin.firebase.ios.instanceid/4.3.3/lib/xamarinios10/Firebase.InstanceID.dll

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Firebase.MLKit.Vision;
 using Foundation;
 using UIKit;
@@ -21,12 +22,14 @@ namespace AccessibleMessaging.Services
 
             var image = new VisionImage(screenshot);
 
+            Debug.WriteLine("TEST!");
             textRecognizer.ProcessImage(image, HandleVisionTextRecognitionCallback);
         }
 
         public void HandleVisionTextRecognitionCallback(VisionText text, NSError error)
         {
-            Console.WriteLine(error?.Description ?? text?.Text);
+            Debug.WriteLine("CAPTURED");
+            Debug.WriteLine(error?.Description ?? text?.Text);
         }
     }
 }

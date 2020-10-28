@@ -1,4 +1,6 @@
 ﻿using UIKit;
+using AccessibleMessaging.TestCases;
+using System;
 
 namespace AccessibleMessaging
 {
@@ -13,6 +15,10 @@ namespace AccessibleMessaging
 
             Firebase.Core.App.Configure();
             _ = Firebase.MLKit.Common.ModelManager.DefaultInstance;
+
+            Console.WriteLine("This is a test!");
+
+            MLKitRecognitionTest test = new MLKitRecognitionTest(); //TEST CASE ONE
         }
     }
 }

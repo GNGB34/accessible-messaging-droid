@@ -123,6 +123,8 @@
     <ItemGroup>
         <Folder Include="Resources\" />
         <Folder Include="Services\" />
+        <Folder Include="Screenshots\" />
+        <Folder Include="TestCases\" />
     </ItemGroup>
     <ItemGroup>
         <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -142,9 +144,12 @@
         </Compile>
         <Compile Include="Services\ScreenshotService.cs" />
         <Compile Include="Services\ScreenshotProcessing.cs" />
+        <Compile Include="TestCases\MLKitRecognitionTest.cs" />
     </ItemGroup>
     <ItemGroup>
       <BundleResource Include="GoogleService-Info.plist" />
+      <BundleResource Include="Resources\Notification.cs" />
+      <BundleResource Include="Screenshots\test.png" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
