@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_grey"
+    android:padding="@dimen/box_inset_layout_padding"
+    tools:context=".settings"
+    tools:deviceIds="wear">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:boxedEdges="all"
+        android:padding="@dimen/inner_frame_layout_padding">
+
+        <EditText
+            android:id="@+id/editTextTextPersonName3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Language:"
+            tools:layout_editor_absoluteX="21dp"
+            tools:layout_editor_absoluteY="400dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="405dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="4dp"
+            android:background="#9D9EEF"
+            android:gravity="center"
+            android:shadowColor="#000000"
+            android:text="SETTINGS"
+            android:textColor="#000000"
+            android:textColorHighlight="#1B1B1B"
+            android:textSize="21sp"
+            app:autoSizeMinTextSize="15sp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="-10dp" />
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="234dp"
+            android:layout_height="84dp"
+            android:gravity="center"
+            android:text="Do Not Disturb"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="113dp" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Permissions:"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="293dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="108dp"
+            android:layout_height="41dp"
+            tools:layout_editor_absoluteX="231dp"
+            tools:layout_editor_absoluteY="298dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Permissions"
+            android:layout_width="116dp"
+            android:layout_height="39dp"
+            tools:layout_editor_absoluteX="231dp"
+            tools:layout_editor_absoluteY="405dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.wear.widget.BoxInsetLayout>
