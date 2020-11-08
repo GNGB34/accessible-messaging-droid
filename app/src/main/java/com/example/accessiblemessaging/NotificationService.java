@@ -8,27 +8,31 @@ import android.widget.Toast;
 public class NotificationService extends NotificationListenerService  {
 
 
-    public void startNotificationListener() {
-        //start's a new thread
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //fetching notifications from server
-                //if there is notifications then call this method
-            }
-        }).start();
-    }
+//    public void startNotificationListener() {
+//        //start's a new thread
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                //fetching notifications from server
+//                //if there is notifications then call this method
+//            }
+//        }).start();
+//    }
+
+
+
 
     @Override
     public void onCreate()
     {
-        startNotificationListener();
-        super.onCreate();
+        super.onCreate(); //Just default oncreate
     }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("STARTT","we start");
         //return super.onStartCommand(intent, flags, startId);
-        return START_STICKY;
+        return START_STICKY;  //Keep the service running;
     }
 
     @Override
@@ -48,8 +52,8 @@ public class NotificationService extends NotificationListenerService  {
         String title = sbn.getNotification().extras.getString("android.title");
         String text = sbn.getNotification().extras.getString("android.text");
         String package_name = sbn.getPackageName();
-        Log.v("Notification title is:", title);
-        Log.v("Notification text is:", text);
+        Log.d("Notification", title);
+        Log.d("Notification:", text);
     }
 
 }
