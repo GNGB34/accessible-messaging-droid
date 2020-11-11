@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.button);
         Button stop = (Button) findViewById(R.id.stop);
         Button check = (Button) findViewById(R.id.check); //Check if service is running or not
+        Button settings=(Button) findViewById(R.id.settings);
 
         check.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
                 startService(service);
             }
         });
+
+        settings.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                openSettings();
+
+            }
+        });
     }
 
     //Checks if the service is running; it basically always is unless the OS stops it
@@ -58,5 +66,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    public void openSettings(){
+        Intent intent=new Intent(this, Settings.class);
+        startActivity(intent);
+    }
 
 }
