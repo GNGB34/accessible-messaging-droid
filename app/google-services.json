@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1093901500458",
+    "firebase_url": "https://accessibilitymessaging.firebaseio.com",
+    "project_id": "accessibilitymessaging",
+    "storage_bucket": "accessibilitymessaging.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093901500458:android:0284db82b85375f0918353",
+        "android_client_info": {
+          "package_name": "com.example.accessiblemesseging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1093901500458-l3rvahik3ore1ajcgaq2ttf9aud7gg7s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdDnLIpVuNXPKXBYh0cxtwnRvbxIQFSrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1093901500458-l3rvahik3ore1ajcgaq2ttf9aud7gg7s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
