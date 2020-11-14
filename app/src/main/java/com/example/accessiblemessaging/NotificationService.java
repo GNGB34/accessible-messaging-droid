@@ -12,14 +12,17 @@ import androidx.annotation.RequiresApi;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class NotificationService extends NotificationListenerService  {
 
     static boolean runFlag = false; //Use this to manipulate functions of the service since this service cannot be stopped manually; only the OS can do that
     //Also used in case service gets disconnected by OS without his approval, request a rebind in the onServiceDisconnected()
-    private NaturalLanguageService.OUTPUT_STATES state;
+    private static NaturalLanguageService.OUTPUT_STATES state;
+    private static final NaturalLanguageService.OUTPUT_STATES on = NaturalLanguageService.OUTPUT_STATES.VOICE;
+    private static final NaturalLanguageService.OUTPUT_STATES off = NaturalLanguageService.OUTPUT_STATES.STOP;
+    private static final NaturalLanguageService.OUTPUT_STATES dnb = NaturalLanguageService.OUTPUT_STATES.DO_NOT_DISTURB;
+
     private DatabaseReference db;
     private NotificationWrapper noti;
     private ArrayList<String> arr; //The list of apps with permissions for; will need to keep this information with a user later
@@ -28,9 +31,10 @@ public class NotificationService extends NotificationListenerService  {
     public void onCreate() {
         super.onCreate(); //Just default oncreate
         db = FirebaseDatabase.getInstance().getReference();
+        arr = new ArrayList<>();
         arr.add("facebook");
         arr.add("instagram");
-        arr.add("messages");
+        arr.add("messaging");
         arr.add("whatsapp");
 
     }
@@ -42,16 +46,16 @@ public class NotificationService extends NotificationListenerService  {
         //return super.onStartCommand(intent, flags, startId);
 
         //Check if explicitly want things to stop, if not, will return previous intent (which is active)
-        Serializable flag = intent.getSerializableExtra("START");
-        if ((boolean)flag == true){
+        NaturalLanguageService.OUTPUT_STATES flag =(NaturalLanguageService.OUTPUT_STATES) intent.getSerializableExtra("START");
+        if (flag == on){
             Log.d("STARTT","we start");
-            state = NaturalLanguageService.OUTPUT_STATES.VOICE;
+            state = on;
             return START_REDELIVER_INTENT;  //Keep the service running;
 
             //Means the functionality (i.e read back to him) should stop cause EXPLICITLY stated by client
         } else {
             Log.d("STOP","we stop");
-            state = NaturalLanguageService.OUTPUT_STATES.STOP;
+            state = off;
             //onDestroy();
             return START_NOT_STICKY;
         }
@@ -84,7 +88,7 @@ public class NotificationService extends NotificationListenerService  {
     @RequiresApi(api = Build.VERSION_CODES.R)
     public void onNotificationPosted (StatusBarNotification sbn){
         //TODO PUT HERE OTHER FUNCTIONS IN IF STATEMENT SUCH AS CLOUD TRANSLATION
-        if (runFlag == true && checkScreen()){
+        if (state == on && checkScreen()){
             String title = sbn.getNotification().extras.getString("android.title");
             String text = sbn.getNotification().extras.getString("android.text");
             String package_name = sbn.getPackageName();
@@ -93,19 +97,24 @@ public class NotificationService extends NotificationListenerService  {
                 if (package_name.contains(s));
                 app = true;
             }
+            Log.d("package name:", package_name + "outside of if");
 
-            if (title != null && text != null && package_name != null && app){
+            if (title != null && text != null && package_name != null && app == true){
                 Log.d("Notification", title);
                 Log.d("Notification:", text);
                 Log.d("package name:", package_name + "this is package name");
                 NotificationWrapper nw = new NotificationWrapper(package_name,title,text,false);
-                db.child(nw.getSender()).setValue(nw);
+                String time = "" + System.currentTimeMillis();
+                Log.d("time", time);
+                db.child(time).setValue(nw);
+                app = false;
             }
         }
     }
 
     public void setState(){
-//TODO FINISH THIS
+
+
 
     }
     //Need to create A FUNCTION THAT WILL READ THE PERMISSIONS SELECTED

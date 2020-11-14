@@ -1,7 +1,5 @@
 package com.example.accessiblemessaging;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent service = new Intent(getApplicationContext(), NotificationService.class);
-                service.putExtra("START", true);
+                service.putExtra("START", NaturalLanguageService.OUTPUT_STATES.VOICE);
                 startService(service);
             }
         });
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent service = new Intent(getApplicationContext(), NotificationService.class);
-                service.putExtra("START", false);
+                service.putExtra("START", NaturalLanguageService.OUTPUT_STATES.STOP);
                 startService(service);
             }
         });
