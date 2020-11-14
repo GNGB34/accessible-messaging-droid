@@ -23,6 +23,13 @@ public class NotificationWrapper {
         this.read = read;
     }
 
+    public NotificationWrapper(NotificationWrapper previousWrapper, String translatedText) {
+        this.application = previousWrapper.getApplication();
+        this.sender = previousWrapper.getSender();
+        this.read = previousWrapper.isRead();
+        this.text = translatedText;
+    }
+
     public String getApplication() { return application; }
 
     public String getSender() { return sender; }
