@@ -1,25 +1,38 @@
 package com.example.accessiblemessaging;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.hardware.display.DisplayManager;
 import android.os.Build;
 import android.os.PowerManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class NotificationService extends NotificationListenerService  {
 
     static boolean runFlag = false; //Use this to manipulate functions of the service since this service cannot be stopped manually; only the OS can do that
     //Also used in case service gets disconnected by OS without his approval, request a rebind in the onServiceDisconnected()
+    private NaturalLanguageService.OUTPUT_STATES state;
+    private DatabaseReference db;
+    private NotificationWrapper noti;
+    private ArrayList<String> arr; //The list of apps with permissions for; will need to keep this information with a user later
 
     @Override
     public void onCreate() {
         super.onCreate(); //Just default oncreate
+        db = FirebaseDatabase.getInstance().getReference();
+        arr.add("facebook");
+        arr.add("instagram");
+        arr.add("messages");
+        arr.add("whatsapp");
+
     }
 
     //ALlow app to stay open, keep the service running to if randomly stopped by OS
@@ -29,16 +42,16 @@ public class NotificationService extends NotificationListenerService  {
         //return super.onStartCommand(intent, flags, startId);
 
         //Check if explicitly want things to stop, if not, will return previous intent (which is active)
-        boolean flag = intent.getBooleanExtra("START", true);
-        if (flag == true){
+        Serializable flag = intent.getSerializableExtra("START");
+        if ((boolean)flag == true){
             Log.d("STARTT","we start");
-            runFlag = true;
+            state = NaturalLanguageService.OUTPUT_STATES.VOICE;
             return START_REDELIVER_INTENT;  //Keep the service running;
 
-         //Means the functionality (i.e read back to him) should stop cause EXPLICITLY stated by client
+            //Means the functionality (i.e read back to him) should stop cause EXPLICITLY stated by client
         } else {
             Log.d("STOP","we stop");
-            runFlag = false;
+            state = NaturalLanguageService.OUTPUT_STATES.STOP;
             //onDestroy();
             return START_NOT_STICKY;
         }
@@ -68,18 +81,35 @@ public class NotificationService extends NotificationListenerService  {
 
 
     //When a notification is posted, if the app is set to run, can do needed operations
+    @RequiresApi(api = Build.VERSION_CODES.R)
     public void onNotificationPosted (StatusBarNotification sbn){
         //TODO PUT HERE OTHER FUNCTIONS IN IF STATEMENT SUCH AS CLOUD TRANSLATION
         if (runFlag == true && checkScreen()){
             String title = sbn.getNotification().extras.getString("android.title");
             String text = sbn.getNotification().extras.getString("android.text");
             String package_name = sbn.getPackageName();
-            Log.d("Notification", title);
-            Log.d("Notification:", text);
+            boolean app = false;
+            for (String s: arr){
+                if (package_name.contains(s));
+                app = true;
+            }
+
+            if (title != null && text != null && package_name != null && app){
+                Log.d("Notification", title);
+                Log.d("Notification:", text);
+                Log.d("package name:", package_name + "this is package name");
+                NotificationWrapper nw = new NotificationWrapper(package_name,title,text,false);
+                db.child(nw.getSender()).setValue(nw);
+            }
         }
     }
 
-//    @Override
+    public void setState(){
+//TODO FINISH THIS
+
+    }
+    //Need to create A FUNCTION THAT WILL READ THE PERMISSIONS SELECTED
+    //    @Override
 //    public void onDestroy(){
 //        runFlag = false;
 //        Log.d("STOP", "stopp");
