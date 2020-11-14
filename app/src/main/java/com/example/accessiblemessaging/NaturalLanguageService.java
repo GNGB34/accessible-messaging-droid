@@ -13,6 +13,7 @@
 package com.example.accessiblemessaging;
 
 import android.app.Notification;
+import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
@@ -21,6 +22,7 @@ import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.annotations.NotNull;
 import com.google.mlkit.common.model.DownloadConditions;
 import com.google.mlkit.nl.languageid.LanguageIdentification;
 import com.google.mlkit.nl.languageid.LanguageIdentifier;
@@ -37,7 +39,7 @@ public class NaturalLanguageService {
 
     // ---------------- Constant Variables ----------------
 
-    public enum OUTPUT_STATES{DO_NOT_DISTURB, VOICE, VOICE_MINIMAL};
+    public enum OUTPUT_STATES{DO_NOT_DISTURB, VOICE, VOICE_MINIMAL, STOP};
     public final Locale DEFAULT_LANGUAGE = Locale.US;
 
     // ---------------- Instance Variables ----------------
@@ -97,34 +99,44 @@ public class NaturalLanguageService {
             case "fr":
                 return Locale.FRENCH;
             default:
+                //TODO - Implement more languages, specifically spanish as requested by the client
                 return null;
         }
     }
 
-    public void formatNotification(Notification capturedNotification) {
+    private String formatNotification(NotificationWrapper notification) {
 
         switch (state) {
             case VOICE:
-                break;
+                return String.format("New message from %s on %s. %s", notification.getSender(), notification.getApplication(), notification.getText());
             case VOICE_MINIMAL:
-                break;
-            case DO_NOT_DISTURB:
-                break;
+                return String.format("New message from %s on %s", notification.getSender(), notification.getApplication());
             default:
-                return;
+                return null;
         }
     }
 
-    @Deprecated
-    public void speak(String plainText, int queueRequest) {
-        int status = controller.speak(plainText, queueRequest, null);
+    public void speak(NotificationWrapper wrapper, int queueRequest) {
+
+        //If we are in DO NOT DISTURB we don't want anything to read or waste CPU time
+        if (state == OUTPUT_STATES.DO_NOT_DISTURB) return;
+
+        int status;
+        String formattedPlaintext = formatNotification(wrapper);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            status = controller.speak(formattedPlaintext, queueRequest, null, null);
+        }
+        else {
+            status = controller.speak(formattedPlaintext, queueRequest, null);
+        }
 
         if (status == TextToSpeech.ERROR) {
             Log.e("VOICESERVICE", "Voice Service - Could not convert the plaintext into voice projection");
         }
     }
 
-    private void translatePlaintext(final String sourceLNG, final String targetLNG, String plaintext) {
+    private void translatePlaintext(final String sourceLNG, final String targetLNG, NotificationWrapper wrapper) {
         TranslatorOptions options = new TranslatorOptions.Builder()
                                             .setSourceLanguage(sourceLNG)
                                             .setTargetLanguage(targetLNG)
@@ -152,14 +164,15 @@ public class NaturalLanguageService {
                         }
                 );
 
-        newSourceToTargetTranslator.translate(plaintext)
+        newSourceToTargetTranslator.translate(wrapper.getText())
                 .addOnSuccessListener(
                         new OnSuccessListener() {
                             @Override
                             public void onSuccess(Object o) {
                                 if (o != null) {
                                     String translatedText = o.toString();
-                                    speak(plaintext, TextToSpeech.QUEUE_ADD);
+                                    NotificationWrapper translatedWrapper = new NotificationWrapper(wrapper, translatedText);
+                                    speak(translatedWrapper, TextToSpeech.QUEUE_ADD);
                                 }
                             }
                         })
@@ -172,9 +185,13 @@ public class NaturalLanguageService {
                         });
     }
 
-    public void detectLanguageCode(final String plaintext) {
+    public void detectLanguageCode(NotificationWrapper wrapper) {
+
+        //If we are in DO NOT DISTURB we don't want anything to read or waste CPU time
+        if (state == OUTPUT_STATES.DO_NOT_DISTURB) return;
+
         LanguageIdentifier languageIdentifier = LanguageIdentification.getClient();
-        languageIdentifier.identifyLanguage(plaintext)
+        languageIdentifier.identifyLanguage(wrapper.getText())
                 .addOnSuccessListener(
                         new OnSuccessListener<String>() {
                             @Override
@@ -184,11 +201,11 @@ public class NaturalLanguageService {
                                 }
                                 else if (language.equals(translateLanguageCode(languageCode))) {
                                     //
-                                    speak(plaintext, TextToSpeech.QUEUE_ADD);
+                                    speak(wrapper, TextToSpeech.QUEUE_ADD);
                                 }
                                 else {
                                     //
-                                    translatePlaintext(languageCode, languageCode, plaintext);
+                                    translatePlaintext(languageCode, languageCode, wrapper);
                                     Log.d("VOICESERVICE", "Voice Service - Successfully Changed language");
                                 }
                             }
