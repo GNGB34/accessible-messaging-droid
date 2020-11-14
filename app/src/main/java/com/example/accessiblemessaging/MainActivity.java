@@ -19,15 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button button = (Button) findViewById(R.id.button);
         Button stop = (Button) findViewById(R.id.stop);
-        Button check = (Button) findViewById(R.id.check); //Check if service is running or not
         Button settings=(Button) findViewById(R.id.settings);
 
-        check.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isMyServiceRunning(NotificationService.class);
-            }
-        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,25 +7,12 @@
     android:layout_gravity="center"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:background="#7685E8"
-        android:gravity="center"
-        android:text="Notification Reader"
-        android:textColor="#000000"
-        android:textColorLink="#0C0C0C"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/button"
         android:layout_width="164dp"
         android:layout_height="82dp"
         android:layout_marginTop="308dp"
+        android:backgroundTint="#3386E1"
         android:gravity="center"
         android:text="start"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +26,7 @@
         android:layout_height="76dp"
         android:layout_marginTop="113dp"
         android:layout_marginBottom="152dp"
+        android:backgroundTint="#F10808"
         android:gravity="center"
         android:text="stop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,20 +36,6 @@
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <Button
-        android:id="@+id/check"
-        android:layout_width="121dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:layout_marginBottom="40dp"
-        android:gravity="center"
-        android:text="Check"
-        app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toTopOf="@+id/settings"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/settings"
         android:layout_width="120dp"
         android:layout_height="49dp"
@@ -69,11 +43,13 @@
         android:layout_marginTop="196dp"
         android:layout_marginEnd="152dp"
         android:layout_marginBottom="64dp"
+        android:shadowColor="#FFFFFF"
         android:text="SETTINGS"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#3C3F41" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
