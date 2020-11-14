@@ -102,9 +102,20 @@ public class NaturalLanguageService {
     }
 
     public void formatNotification(Notification capturedNotification) {
-        //TODO - IMPLEMENT NOTIFICATION FORMAT
+
+        switch (state) {
+            case VOICE:
+                break;
+            case VOICE_MINIMAL:
+                break;
+            case DO_NOT_DISTURB:
+                break;
+            default:
+                return;
+        }
     }
 
+    @Deprecated
     public void speak(String plainText, int queueRequest) {
         int status = controller.speak(plainText, queueRequest, null);
 
@@ -113,32 +124,7 @@ public class NaturalLanguageService {
         }
     }
 
-    private void detectLanguageCode(final String plaintext) {
-        LanguageIdentifier languageIdentifier = LanguageIdentification.getClient();
-        languageIdentifier.identifyLanguage(plaintext)
-                .addOnSuccessListener(
-                        new OnSuccessListener<String>() {
-                            @Override
-                            public void onSuccess(@Nullable String languageCode) {
-                                if (languageCode.equals("und")) {
-                                    Log.d("VOICESERVICE", "Voice Service - Language Not Discoverable : When trying to determine the language.");
-                                }
-                                else {
-                                    controller.setLanguage(translateLanguageCode(languageCode));
-                                    Log.d("VOICESERVICE", "Voice Service - Successfully Changed language");
-                                }
-                            }
-                        })
-                .addOnFailureListener(
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.i("VOICESERVICE", "Voice Service - Error Thrown While Tying to determine the language");
-                            }
-                        });
-    }
-
-    private void translatePlaintext(String sourceLNG, String targetLNG, String plaintext) {
+    private void translatePlaintext(final String sourceLNG, final String targetLNG, String plaintext) {
         TranslatorOptions options = new TranslatorOptions.Builder()
                                             .setSourceLanguage(sourceLNG)
                                             .setTargetLanguage(targetLNG)
@@ -171,7 +157,10 @@ public class NaturalLanguageService {
                         new OnSuccessListener() {
                             @Override
                             public void onSuccess(Object o) {
-                                //TODO - implement on success
+                                if (o != null) {
+                                    String translatedText = o.toString();
+                                    speak(plaintext, TextToSpeech.QUEUE_ADD);
+                                }
                             }
                         })
                 .addOnFailureListener(
@@ -179,6 +168,36 @@ public class NaturalLanguageService {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 //TODO - implement on failure
+                            }
+                        });
+    }
+
+    public void detectLanguageCode(final String plaintext) {
+        LanguageIdentifier languageIdentifier = LanguageIdentification.getClient();
+        languageIdentifier.identifyLanguage(plaintext)
+                .addOnSuccessListener(
+                        new OnSuccessListener<String>() {
+                            @Override
+                            public void onSuccess(@Nullable String languageCode) {
+                                if (languageCode.equals("und")) {
+                                    Log.d("VOICESERVICE", "Voice Service - Language Not Discoverable : When trying to determine the language.");
+                                }
+                                else if (language.equals(translateLanguageCode(languageCode))) {
+                                    //
+                                    speak(plaintext, TextToSpeech.QUEUE_ADD);
+                                }
+                                else {
+                                    //
+                                    translatePlaintext(languageCode, languageCode, plaintext);
+                                    Log.d("VOICESERVICE", "Voice Service - Successfully Changed language");
+                                }
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.i("VOICESERVICE", "Voice Service - Error Thrown While Tying to determine the language");
                             }
                         });
     }
