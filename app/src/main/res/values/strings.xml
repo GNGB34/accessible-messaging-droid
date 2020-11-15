@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AccessibleMessaging</string>
+    <string-array name ="NotificationQueries">
+        <item>read $missedNotifications</item>
+        <item>read $Notifications</item>
+    </string-array>
 </resources>
