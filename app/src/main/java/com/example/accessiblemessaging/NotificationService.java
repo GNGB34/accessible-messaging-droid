@@ -39,6 +39,10 @@ public class NotificationService extends NotificationListenerService  {
 
     }
 
+    public void onIntialize(){
+
+    }
+
     //ALlow app to stay open, keep the service running to if randomly stopped by OS
     // Client can stop FUNCTIONALITY but not the service. This function can act as start AND stop for functionality
     @Override
@@ -88,6 +92,9 @@ public class NotificationService extends NotificationListenerService  {
     @RequiresApi(api = Build.VERSION_CODES.R)
     public void onNotificationPosted (StatusBarNotification sbn){
         //TODO PUT HERE OTHER FUNCTIONS IN IF STATEMENT SUCH AS CLOUD TRANSLATION
+        NaturalLanguageService nls;
+        NotificationWrapper nw;
+
         if (state == on && checkScreen()){
             String title = sbn.getNotification().extras.getString("android.title");
             String text = sbn.getNotification().extras.getString("android.text");
@@ -103,9 +110,14 @@ public class NotificationService extends NotificationListenerService  {
                 Log.d("Notification", title);
                 Log.d("Notification:", text);
                 Log.d("package name:", package_name + "this is package name");
-                NotificationWrapper nw = new NotificationWrapper(package_name,title,text,false);
+                nw = new NotificationWrapper(package_name,title,text,false);
+
+                nls = new NaturalLanguageService(state);
+                nls.initialize();
+                nls.speak(nw, 1);
                 String time = "" + System.currentTimeMillis();
                 Log.d("time", time);
+
                 db.child(time).setValue(nw);
                 app = false;
             }
