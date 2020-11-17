@@ -12,7 +12,7 @@
 
 package com.example.accessiblemessaging;
 
-import android.app.Notification;
+import android.content.Context;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -22,16 +22,12 @@ import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.annotations.NotNull;
 import com.google.mlkit.common.model.DownloadConditions;
 import com.google.mlkit.nl.languageid.LanguageIdentification;
 import com.google.mlkit.nl.languageid.LanguageIdentifier;
-import com.google.mlkit.nl.translate.TranslateLanguage;
 import com.google.mlkit.nl.translate.Translation;
 import com.google.mlkit.nl.translate.Translator;
 import com.google.mlkit.nl.translate.TranslatorOptions;
-
-import org.w3c.dom.Text;
 
 import java.util.Locale;
 
@@ -61,8 +57,8 @@ public class NaturalLanguageService {
 
     // ----------------   Builder Class   -----------------
 
-    public void initialize() {
-        controller = new TextToSpeech(null, new TextToSpeech.OnInitListener() {
+    public void initialize(Context context) {
+        controller = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 switch (status) {
