@@ -94,32 +94,36 @@ public class NotificationService extends NotificationListenerService  {
         //TODO PUT HERE OTHER FUNCTIONS IN IF STATEMENT SUCH AS CLOUD TRANSLATION
         NaturalLanguageService nls;
         NotificationWrapper nw;
+        String title;
+        String text;
+        String package_name = sbn.getPackageName();
+        boolean app = false;
 
-        if (state == on && checkScreen()){
-            String title = sbn.getNotification().extras.getString("android.title");
-            String text = sbn.getNotification().extras.getString("android.text");
-            String package_name = sbn.getPackageName();
-            boolean app = false;
-            for (String s: arr){
-                if (package_name.contains(s));
+        for (String s: arr){
+            if (package_name.contains(s)){
                 app = true;
             }
+        }
+        Log.d("APP", Boolean.toString(app) + "hello");
+        if (state == on && checkScreen() && app == true){
+            title =  sbn.getNotification().extras.getString("android.title");
+            text = sbn.getNotification().extras.getString("android.text");
+
             Log.d("package name:", package_name + "outside of if");
 
-            if (title != null && text != null && package_name != null && app == true){
+            if (title != null && text != null && package_name != null){
                 Log.d("Notification", title);
                 Log.d("Notification:", text);
                 Log.d("package name:", package_name + "this is package name");
                 nw = new NotificationWrapper(package_name,title,text,false);
-
-                nls = new NaturalLanguageService(state);
-                nls.initialize();
-                nls.speak(nw, 1);
+//
+//                nls = new NaturalLanguageService(state);
+//                nls.initialize();
+//                nls.speak(nw, 1);
                 String time = "" + System.currentTimeMillis();
                 Log.d("time", time);
 
                 db.child(time).setValue(nw);
-                app = false;
             }
         }
     }
