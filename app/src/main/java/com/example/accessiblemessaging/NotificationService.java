@@ -24,7 +24,6 @@ public class NotificationService extends NotificationListenerService  {
     private static final NaturalLanguageService.OUTPUT_STATES dnb = NaturalLanguageService.OUTPUT_STATES.DO_NOT_DISTURB;
 
     private DatabaseReference db;
-    private NotificationWrapper noti;
     private ArrayList<String> arr; //The list of apps with permissions for; will need to keep this information with a user later
 
     @Override
@@ -39,9 +38,6 @@ public class NotificationService extends NotificationListenerService  {
 
     }
 
-    public void onIntialize(){
-
-    }
 
     //ALlow app to stay open, keep the service running to if randomly stopped by OS
     // Client can stop FUNCTIONALITY but not the service. This function can act as start AND stop for functionality
@@ -54,7 +50,7 @@ public class NotificationService extends NotificationListenerService  {
         if (flag == on){
             Log.d("STARTT","we start");
             state = on;
-            return START_REDELIVER_INTENT;  //Keep the service running;
+            return START_NOT_STICKY;  //Keep the service running;
 
             //Means the functionality (i.e read back to him) should stop cause EXPLICITLY stated by client
         } else {
@@ -78,7 +74,7 @@ public class NotificationService extends NotificationListenerService  {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onListenerDisconnected(){
-        if(runFlag!=false){
+        if(state != off){
             super.onListenerDisconnected();
             Log.d("DISCONNECTED", "We DISCONNECTED boyz");
             Log.d("NLService", "Notification listener DISCONNECTED from the notification service! Scheduling a reconnect...");
@@ -104,7 +100,7 @@ public class NotificationService extends NotificationListenerService  {
                 app = true;
             }
         }
-        Log.d("APP", Boolean.toString(app) + "hello");
+
         if (state == on && checkScreen() && app == true){
             title =  sbn.getNotification().extras.getString("android.title");
             text = sbn.getNotification().extras.getString("android.text");
@@ -116,10 +112,8 @@ public class NotificationService extends NotificationListenerService  {
                 Log.d("Notification:", text);
                 Log.d("package name:", package_name + "this is package name");
                 nw = new NotificationWrapper(package_name,title,text,false);
-//
-//                nls = new NaturalLanguageService(state);
-//                nls.initialize();
-//                nls.speak(nw, 1);
+
+
                 String time = "" + System.currentTimeMillis();
                 Log.d("time", time);
 
@@ -131,8 +125,8 @@ public class NotificationService extends NotificationListenerService  {
     public void setState(){
 
 
-
     }
+
     //Need to create A FUNCTION THAT WILL READ THE PERMISSIONS SELECTED
     //    @Override
 //    public void onDestroy(){
