@@ -11,6 +11,24 @@
     <fulfillment urlFirebase ="https://accessibilitymessaging.firebasio.com"/>
 
     </action>
+
+    <action intentName="actions.intent.OPEN_APP_FEATURE">
+<!--        <fulfillment urlTemplate = "accessiblemessaging://mainpage/start"/>-->
+        <fulfillment urlTemplate="{@url}" />
+        <parameter name = "feature">
+            <entity-set-reference entitySetId = "featureParamEntitySet"/>
+        </parameter>
+    </action>
+
+    <entity-set entitySetId = "featureParamEntitySet">
+
+        <entity url = "accessiblemessaging://mainpage/start" name="start"/>
+        <entity url = "accessiblemessaging://mainpage/stop" name="stop"/>
+    </entity-set>
+
+<!--    <action >-->
+<!--        <fulfillment urlTemplate = "accessiblemessaging://mainpage/stop"/>-->
+<!--    </action>-->
     <!--    Example Action -->
     <!--    <action intentName="Intent name (actions.intent.*)"> -->
     <!--        <action-display -->
