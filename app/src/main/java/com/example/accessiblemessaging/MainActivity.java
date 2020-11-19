@@ -3,19 +3,30 @@ package com.example.accessiblemessaging;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.example.accessiblemessaging.ui.login.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance(); //GC
 
         Button button = (Button) findViewById(R.id.button);
         Button stop = (Button) findViewById(R.id.stop);
@@ -63,6 +74,40 @@ public class MainActivity extends AppCompatActivity {
     public void openSettings(){
         Intent intent=new Intent(this, Settings.class);
         startActivity(intent);
+    }
+
+    public void updateUI(FirebaseUser user) {
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        Intent intent = new Intent(this, LoginActivity.class);
+
+        if (currentUser == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.dialog_request)
+                    .setPositiveButton(R.string.dialog_positive, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton(R.string.dialog_negative, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+            builder.create();
+            builder.show();
+        }
+        else {
+            updateUI(currentUser);
+        }
     }
 
 }
