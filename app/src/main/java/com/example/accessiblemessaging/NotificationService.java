@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
@@ -18,10 +19,12 @@ public class NotificationService extends NotificationListenerService  {
 
     static boolean runFlag = false; //Use this to manipulate functions of the service since this service cannot be stopped manually; only the OS can do that
     //Also used in case service gets disconnected by OS without his approval, request a rebind in the onServiceDisconnected()
-    private static NaturalLanguageService.OUTPUT_STATES state;
+
+    private static NaturalLanguageService.OUTPUT_STATES state = NaturalLanguageService.OUTPUT_STATES.VOICE;
     private static final NaturalLanguageService.OUTPUT_STATES on = NaturalLanguageService.OUTPUT_STATES.VOICE;
     private static final NaturalLanguageService.OUTPUT_STATES off = NaturalLanguageService.OUTPUT_STATES.STOP;
     private static final NaturalLanguageService.OUTPUT_STATES dnb = NaturalLanguageService.OUTPUT_STATES.DO_NOT_DISTURB;
+    static NaturalLanguageService nls;
 
     private DatabaseReference db;
     private NotificationWrapper noti;
@@ -31,16 +34,15 @@ public class NotificationService extends NotificationListenerService  {
     public void onCreate() {
         super.onCreate(); //Just default oncreate
         db = FirebaseDatabase.getInstance().getReference();
+
         arr = new ArrayList<>();
         arr.add("facebook");
         arr.add("instagram");
         arr.add("messaging");
         arr.add("whatsapp");
 
-    }
-
-    public void onIntialize(){
-
+        nls = new NaturalLanguageService(state);
+        nls.initialize(getApplicationContext());
     }
 
     //ALlow app to stay open, keep the service running to if randomly stopped by OS
@@ -92,31 +94,35 @@ public class NotificationService extends NotificationListenerService  {
     @RequiresApi(api = Build.VERSION_CODES.R)
     public void onNotificationPosted (StatusBarNotification sbn){
         //TODO PUT HERE OTHER FUNCTIONS IN IF STATEMENT SUCH AS CLOUD TRANSLATION
-        NaturalLanguageService nls;
         NotificationWrapper nw;
+        String title;
+        String text;
+        String package_name = sbn.getPackageName();
+        boolean app = false;
 
-        if (state == on && checkScreen()){
-            String title = sbn.getNotification().extras.getString("android.title");
-            String text = sbn.getNotification().extras.getString("android.text");
-            String package_name = sbn.getPackageName();
-            boolean app = false;
-            for (String s: arr){
-                if (package_name.contains(s));
+        for (String s: arr){
+            if (package_name.contains(s)){
                 app = true;
             }
+        }
+        Log.d("APP", Boolean.toString(app) + "hello");
+        if (state == on && checkScreen() && app == true){
+            title =  sbn.getNotification().extras.getString("android.title");
+            text = sbn.getNotification().extras.getString("android.text");
+
             Log.d("package name:", package_name + "outside of if");
 
-            if (title != null && text != null && package_name != null && app == true){
+            if (title != null && text != null && package_name != null){
                 Log.d("Notification", title);
                 Log.d("Notification:", text);
                 Log.d("package name:", package_name + "this is package name");
-                nw = new NotificationWrapper(package_name,title,text,false);
 
-                nls = new NaturalLanguageService(state);
-                nls.initialize();
-                nls.speak(nw, 1);
                 String time = "" + System.currentTimeMillis();
                 Log.d("time", time);
+
+                nw = new NotificationWrapper(package_name, title, text, time,false);
+
+                nls.speak(nw, TextToSpeech.QUEUE_ADD);
 
                 db.child(time).setValue(nw);
                 app = false;
