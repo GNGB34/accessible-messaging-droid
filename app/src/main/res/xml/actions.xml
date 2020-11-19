@@ -1,16 +1,16 @@
 <?xml version ="1.0" encoding ="utf-8"?><!--  Learn More about how to use App Actions: https://developer.android.com/guide/actions/index.html -->
 <actions>
-    <action intentName ="custom.actions.intent.NotificationsService"> queryPatterns ="@array/NotificationQueries
-    <parameter intentParameter ="text" name = "text" type ="https://schema.org/Text"/>
-    <parameter intentParameter ="sender" name = "sender" type ="https://schema.org/Text"/>
-    <parameter intentParameter="application" name = "application" type ="https://schema.org/Text"/>
-    </action>
+<!--    <action intentName ="custom.actions.intent.NotificationsService"> queryPatterns ="@array/NotificationQueries-->
+<!--    <parameter intentParameter ="text" name = "text" type ="https://schema.org/Text"/>-->
+<!--    <parameter intentParameter ="sender" name = "sender" type ="https://schema.org/Text"/>-->
+<!--    <parameter intentParameter="application" name = "application" type ="https://schema.org/Text"/>-->
+<!--    </action>-->
 
 
-    <action intentName ="custom.actions.intent.NotificationsService"> queryPatterns ="@array/NotificationQueries
-    <fulfillment urlFirebase ="https://accessibilitymessaging.firebasio.com"/>
+<!--    <action intentName ="custom.actions.intent.NotificationsService"> queryPatterns ="@array/NotificationQueries-->
+<!--    <fulfillment urlFirebase ="https://accessibilitymessaging.firebasio.com"/>-->
 
-    </action>
+<!--    </action>-->
 
     <action intentName="actions.intent.OPEN_APP_FEATURE">
 <!--        <fulfillment urlTemplate = "accessiblemessaging://mainpage/start"/>-->

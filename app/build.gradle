@@ -8,9 +8,9 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.accessiblemesseging"
-        minSdkVersion 23
-        targetSdkVersion 26
+        applicationId "com.mana.accessiblemesseging"
+        minSdkVersion 29
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 

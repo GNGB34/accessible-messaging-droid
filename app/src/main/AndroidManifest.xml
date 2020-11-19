@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.accessiblemessaging">
+    package="com.mana.accessiblemessaging">
 
     <application
         android:allowBackup="true"
@@ -13,8 +13,8 @@
             android:name="com.google.android.actions"
             android:resource="@xml/actions" />
 
-        <activity android:name=".Settings" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.mana.accessiblemessaging.Settings" />
+        <activity android:name="com.mana.accessiblemessaging.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +30,7 @@
         </activity>
 
         <service
-            android:name=".NotificationService"
+            android:name="com.mana.accessiblemessaging.NotificationService"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
