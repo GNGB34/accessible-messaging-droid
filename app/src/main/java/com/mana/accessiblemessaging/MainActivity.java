@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         //if the intent matches the ACTION_VIEW (meaning Google requested) then enter it)
         Intent intent = getIntent();
 
-        if (intent.getAction() == intent.ACTION_VIEW) {
+        if (intent.getAction().equals(intent.ACTION_VIEW)) {
            handleDeepLink(intent.getData());
             Log.d("ACTION", "made it to action");
             Log.d("URI", intent.getData().toString());
@@ -97,12 +97,12 @@ public class MainActivity extends AppCompatActivity {
     private void handleDeepLink(Uri data){
 
         List<String> arr = data.getPathSegments();
-        if (arr.contains("start")){
+        if (arr.contains("listener") || arr.contains("LISTENER")){
             Log.d("START_URI", "Able to make it to deep link start");
             startListen();
-        } else if (arr.contains("stop")){
+        } else if (arr.contains("removeListen")){
             stopListen();
-        }else{
+        }else {
             Log.d("NOTHING_ELSE", "the else ");
             for (String s: arr){
                 Log.d("PATHS_URI", s);

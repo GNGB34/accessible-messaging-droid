@@ -14,7 +14,13 @@
 
     <action intentName="actions.intent.OPEN_APP_FEATURE">
 <!--        <fulfillment urlTemplate = "accessiblemessaging://mainpage/start"/>-->
-        <fulfillment urlTemplate="{@url}" />
+        <fulfillment urlTemplate="accessiblemessaging://mainpage/{?appFeature}">
+            <parameter-mapping
+                intentParameter = "feature"
+                urlParameter = "appFeature"
+                />
+        </fulfillment>
+
         <parameter name = "feature">
             <entity-set-reference entitySetId = "featureParamEntitySet"/>
         </parameter>
@@ -22,8 +28,8 @@
 
     <entity-set entitySetId = "featureParamEntitySet">
 
-        <entity url = "accessiblemessaging://mainpage/start" name="start"/>
-        <entity url = "accessiblemessaging://mainpage/stop" name="stop"/>
+        <entity  name="listener" identifier = "LISTENER"/>
+        <entity  name="removeListen" identifier ="REMOVE LISTEN"/>
     </entity-set>
 
 <!--    <action >-->
