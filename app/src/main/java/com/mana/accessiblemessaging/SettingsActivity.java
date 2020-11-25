@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingsActivity extends AppCompatActivity {
     String[] languageOptions={"English","Spanish"};
-    String[] permissionsOptions={"Whatsapp","Messages", "Facebook Messenger"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +21,5 @@ public class SettingsActivity extends AppCompatActivity {
         languageSelect.setAdapter(array_adapter);
 
 
-        Spinner permissionsSelect=(Spinner) findViewById(R.id.permissionsSpin);
-        ArrayAdapter<String> array_adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, permissionsOptions);
-        array_adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        permissionsSelect.setAdapter(array_adapter2);
     }
 }

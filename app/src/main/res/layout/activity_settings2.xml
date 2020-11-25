@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:visibility="visible"
@@ -21,47 +21,77 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:id="@+id/linearLayout3"
+        android:layout_width="412dp"
+        android:layout_height="223dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/permissionsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginTop="175dp"
             android:text="Permissions:"
             android:textColor="#000000"
             android:textSize="20sp"
             app:layout_constraintHeight_percent="50" />
 
-        <Spinner
-            android:id="@+id/permissionsSpin"
-            android:layout_width="144dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="175dp"
-            android:layout_marginRight="25dp"
-            android:backgroundTint="#00AA4444"
-            android:contextClickable="true"
-            android:spinnerMode="dropdown"
-            android:visibility="visible" />
-
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/linearLayout6"
+        android:layout_width="254dp"
+        android:layout_height="184dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:text="Whatsapp" />
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_weight="1"
+            android:text="Messages" />
+
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_weight="1"
+            android:text="Facebook Messenger" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="412dp"
+        android:layout_height="308dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="263dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
         <TextView
             android:id="@+id/languageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="290dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="25dp"
             android:text="Language:"
             android:textColor="#000000"
             android:textSize="20sp"
@@ -72,7 +102,7 @@
             android:layout_width="169dp"
             android:layout_height="27dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="290dp"
+            android:layout_marginTop="25dp"
             android:layout_marginRight="25dp" />
 
     </LinearLayout>
