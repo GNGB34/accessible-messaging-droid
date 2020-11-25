@@ -1,6 +1,7 @@
 package com.mana.accessiblemessaging;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 public class Setting {
 
@@ -8,18 +9,28 @@ public class Setting {
         INSTAGRAM, FACEBOOK, MESSAGES
     }
 
-    private String language;
+
+    private Locale language;
     private HashMap<String, Boolean> appPermissions; //All the app permissions, with the name of the app, followed by a boolean value
 
+    public Setting(){
+
+    }
+
     public Setting(HashMap<String, Boolean > appPermissions, String language){
-        this.language = language;
+        this.language = ;
         this.appPermissions = appPermissions;
     }
 
     /*
     Getters here
      */
+
     public String getLanguage(){
+        switch (language){
+            case Locale.US:
+                "en";
+        }
         return language;
     }
 
