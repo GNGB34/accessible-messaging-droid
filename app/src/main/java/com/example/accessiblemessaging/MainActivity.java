@@ -7,10 +7,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.accessiblemessaging.ui.login.LoginActivity;
@@ -76,8 +79,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void updateUI(FirebaseUser user) {
+    public void openLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
 
+    public void updateUI(FirebaseUser user) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        TextView loginOrRegister = (TextView) findViewById(R.id.loginOrRegister);
+        loginOrRegister.setText(currentUser.getDisplayName());
     }
 
     @Override
@@ -85,15 +95,13 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        Intent intent = new Intent(this, LoginActivity.class);
-
         if (currentUser == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.dialog_request)
                     .setPositiveButton(R.string.dialog_positive, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            startActivity(intent);
+                            openLogin();
                         }
                     })
                     .setNegativeButton(R.string.dialog_negative, new DialogInterface.OnClickListener() {
