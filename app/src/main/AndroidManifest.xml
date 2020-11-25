@@ -13,7 +13,7 @@
             android:name="com.google.android.actions"
             android:resource="@xml/actions" />
 
-        <activity android:name="com.mana.accessiblemessaging.Settings" />
+        <activity android:name="com.mana.accessiblemessaging.SettingsActivity" />
         <activity android:name="com.mana.accessiblemessaging.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

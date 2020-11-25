@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:visibility="visible"
-    tools:context=".Settings">
+    tools:context=".SettingsActivity">
 
     <Switch
         android:id="@+id/doNotDisturb"

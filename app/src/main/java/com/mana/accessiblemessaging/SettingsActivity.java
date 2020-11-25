@@ -1,12 +1,12 @@
 package com.mana.accessiblemessaging;
 
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.widget.Spinner;
-import android.widget.ArrayAdapter;
-
-public class Settings extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
     String[] languageOptions={"English","Spanish"};
     String[] permissionsOptions={"Whatsapp","Messages", "Facebook Messenger"};
 
