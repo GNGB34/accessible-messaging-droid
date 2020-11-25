@@ -21,7 +21,7 @@ public class NotificationService extends NotificationListenerService  {
     private static NaturalLanguageService.OUTPUT_STATES state;
     private static final NaturalLanguageService.OUTPUT_STATES on = NaturalLanguageService.OUTPUT_STATES.VOICE;
     private static final NaturalLanguageService.OUTPUT_STATES off = NaturalLanguageService.OUTPUT_STATES.STOP;
-    private static final NaturalLanguageService.OUTPUT_STATES dnb = NaturalLanguageService.OUTPUT_STATES.DO_NOT_DISTURB;
+    private static final NaturalLanguageService.OUTPUT_STATES dnd = NaturalLanguageService.OUTPUT_STATES.DO_NOT_DISTURB;
 
     private DatabaseReference db;
     private ArrayList<String> arr; //The list of apps with permissions for; will need to keep this information with a user later
@@ -30,12 +30,13 @@ public class NotificationService extends NotificationListenerService  {
     public void onCreate() {
         super.onCreate(); //Just default oncreate
         db = FirebaseDatabase.getInstance().getReference();
-        arr = new ArrayList<>();
-        arr.add("facebook");
-        arr.add("instagram");
-        arr.add("messaging");
-        arr.add("whatsapp");
+//        arr = new ArrayList<>();
+//        arr.add("facebook");
+//        arr.add("instagram");
+//        arr.add("messaging");
+//        arr.add("whatsapp");
 
+        //TODO retrieve from the db the user's permissions, add them to a Setting object
     }
 
 
@@ -53,6 +54,9 @@ public class NotificationService extends NotificationListenerService  {
             return START_NOT_STICKY;  //Keep the service running;
 
             //Means the functionality (i.e read back to him) should stop cause EXPLICITLY stated by client
+        } else if (flag == dnd){
+            state = dnd;
+            return START_NOT_STICKY;  //Keep the service running;
         } else {
             Log.d("STOP","we stop");
             state = off;
@@ -95,11 +99,12 @@ public class NotificationService extends NotificationListenerService  {
         String package_name = sbn.getPackageName();
         boolean app = false;
 
-        for (String s: arr){
-            if (package_name.contains(s)){
-                app = true;
-            }
-        }
+        //TODO loop thru the user Permission object, retrieve the names of apps
+//        for (String s: arr){
+//            if (package_name.contains(s)){
+//                app = true;
+//            }
+//        }
 
         if (state == on && checkScreen() && app == true){
             title =  sbn.getNotification().extras.getString("android.title");
@@ -112,20 +117,18 @@ public class NotificationService extends NotificationListenerService  {
                 Log.d("Notification:", text);
                 Log.d("package name:", package_name + "this is package name");
                 nw = new NotificationWrapper(package_name,title,text,false);
+                //TODO add in NLS service here
 
-
-                String time = "" + System.currentTimeMillis();
-                Log.d("time", time);
-
-                db.child(time).setValue(nw);
             }
+        } else if (state == dnd  && app == true){
+            //TODO was meant to be done if notifications can be read from firebase back to user via activiating google assistant
         }
     }
 
-    public void setState(){
-
-
-    }
+//    public void setState(){
+//
+//
+//    }
 
     //Need to create A FUNCTION THAT WILL READ THE PERMISSIONS SELECTED
     //    @Override
