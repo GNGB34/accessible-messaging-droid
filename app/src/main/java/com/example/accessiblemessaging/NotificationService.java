@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
-import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
@@ -105,7 +104,7 @@ public class NotificationService extends NotificationListenerService  {
                 app = true;
             }
         }
-        Log.d("APP", Boolean.toString(app) + "hello");
+        Log.d("APP", Boolean.toString(app) + "  hello");
         if (state == on && checkScreen() && app == true){
             title =  sbn.getNotification().extras.getString("android.title");
             text = sbn.getNotification().extras.getString("android.text");
@@ -121,9 +120,8 @@ public class NotificationService extends NotificationListenerService  {
                 Log.d("time", time);
 
                 nw = new NotificationWrapper(package_name, title, text, time,false);
-
-                nls.speak(nw, TextToSpeech.QUEUE_ADD);
-
+                nls.switchLanguage(nls.translateLanguageCode("es"));
+                nls.detectLanguageCode(nw);
                 db.child(time).setValue(nw);
                 app = false;
             }
