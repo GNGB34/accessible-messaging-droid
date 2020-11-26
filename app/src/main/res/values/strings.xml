@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">AccessibleMessaging</string>
+    <string name="messages">Messages</string>
+    <string name = "facebook_messenger">Facebook Messenger</string>
+    <string name="whatsapp">Whatsapp</string>
+
     <string-array name ="NotificationQueries">
         <item>read $missedNotifications</item>
         <item>read $Notifications</item>

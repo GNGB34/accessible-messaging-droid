@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class Setting {
 
     public static enum Application{
-        WHATSAPP, FACEBOOK, MESSAGES
+        WHATSAPP, MESSENGER, MESSAGES
     }
 
 
@@ -57,13 +57,12 @@ public class Setting {
         }
     }
 
-   // public void addPermission()
-
-    public void changePermission(Application app, boolean val){
+    //This will allow for less passing of strings in order to change permission
+    public void changePermission(Application app){
         String appName;
         switch (app){
-            case FACEBOOK:
-                appName = "facebook";
+            case MESSENGER:
+                appName = "messenger";
                 break;
             case MESSAGES:
                 appName = "messaging";
@@ -75,7 +74,11 @@ public class Setting {
                 appName = "messaging";
         }
 
-        appPermissions.put(appName, val);
+        if (appPermissions.get(appName) == true){
+            appPermissions.put(appName, false);
+        } else{
+            appPermissions.put(appName, true);
+        }
 
     }
 

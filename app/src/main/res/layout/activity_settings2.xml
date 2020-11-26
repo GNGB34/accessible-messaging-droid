@@ -47,7 +47,7 @@
             android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:backgroundTint="#12CC25"
-            android:text="Whatsapp" />
+            android:text="@string/whatsapp" />
 
         <Button
             android:id="@+id/messengerButton"
@@ -56,7 +56,7 @@
             android:layout_marginTop="25dp"
             android:layout_weight="1"
             android:backgroundTint="#6615B6"
-            android:text="Messenger" />
+            android:text="@string/messages" />
 
         <Button
             android:id="@+id/facebookButton"
@@ -65,7 +65,7 @@
             android:layout_marginTop="25dp"
             android:layout_weight="1"
             android:backgroundTint="#0DB0B6"
-            android:text="Facebook Messenger" />
+            android:text="@string/facebook_messenger" />
 
     </LinearLayout>
 
