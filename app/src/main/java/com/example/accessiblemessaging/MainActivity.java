@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Icon;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance(); //GC
+
+        // -------------------- Buttons Connections -------------------------
 
         Button button = (Button) findViewById(R.id.button);
         Button stop = (Button) findViewById(R.id.stop);
@@ -63,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // -------------------- Utility Functions -------------------------
+
     //Checks if the service is running; it basically always is unless the OS stops it
     private void isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -73,10 +78,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void updateUI(FirebaseUser user) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        TextView loginOrRegister = (TextView) findViewById(R.id.loginOrRegister);
+        loginOrRegister.setText(currentUser.getEmail());
+    }
 
-    public void openSettings(){
-        Intent intent=new Intent(this, Settings.class);
-        startActivity(intent);
+    // -------------------- Director Functions -------------------------
+
+    public void directSettingsOrLogin(View view) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            openLogin();
+        }
+        else {
+            updateUI(currentUser);
+            openSettings();
+        }
     }
 
     public void openLogin() {
@@ -84,38 +102,49 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void updateUI(FirebaseUser user) {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        TextView loginOrRegister = (TextView) findViewById(R.id.loginOrRegister);
-        loginOrRegister.setText(currentUser.getDisplayName());
+    public void openSettings(){
+        Intent intent=new Intent(this, Settings.class);
+        startActivity(intent);
     }
+
+    // -------------------- Runtime Notification Functions -------------------------
 
     @Override
     public void onStart() {
         super.onStart();
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.dialog_request)
-                    .setPositiveButton(R.string.dialog_positive, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            openLogin();
-                        }
-                    })
-                    .setNegativeButton(R.string.dialog_negative, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+        Context mainActivityContext = this;
 
-                        }
-                    });
-            builder.create();
-            builder.show();
-        }
-        else {
-            updateUI(currentUser);
-        }
+        //we only want the notification to post itself after about 30 seconds after the app has opened up, this gives enough time for the
+        //user to edit settings quickly without being inturupted or if longer, the notification to use the MANA database
+        Handler popupDelay = new Handler();
+        popupDelay.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if (currentUser == null) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mainActivityContext);
+                    builder.setMessage(R.string.dialog_request)
+                            .setPositiveButton(R.string.dialog_positive, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    openLogin();
+                                }
+                            })
+                            .setNegativeButton(R.string.dialog_negative, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                    builder.create();
+                    builder.show();
+                }
+                else {
+                    updateUI(currentUser);
+                }
+            }
+        }, 30000); //load it after 30 seconds = 30,000 ms
     }
 
 }
