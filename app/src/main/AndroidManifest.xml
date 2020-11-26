@@ -12,7 +12,10 @@
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/actions" />
-
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/title_activity_login">
+        </activity>
         <activity android:name="com.mana.accessiblemessaging.SettingsActivity" />
         <activity android:name="com.mana.accessiblemessaging.MainActivity">
             <intent-filter>
