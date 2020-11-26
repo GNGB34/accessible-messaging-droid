@@ -8,24 +8,13 @@
     android:visibility="visible"
     tools:context=".SettingsActivity">
 
-    <Switch
-        android:id="@+id/doNotDisturb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:text="Do Not Disturb"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="30"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="412dp"
-        android:layout_height="223dp"
+        android:layout_width="375dp"
+        android:layout_height="143dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -33,8 +22,8 @@
             android:id="@+id/permissionsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="175dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="110dp"
             android:text="Permissions:"
             android:textColor="#000000"
             android:textSize="20sp"
@@ -44,42 +33,46 @@
 
     <LinearLayout
         android:id="@+id/linearLayout6"
-        android:layout_width="254dp"
-        android:layout_height="184dp"
+        android:layout_width="279dp"
+        android:layout_height="287dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
-        <CheckBox
-            android:id="@+id/checkBox"
+        <Button
+            android:id="@+id/whatsappButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
+            android:backgroundTint="#12CC25"
             android:text="Whatsapp" />
 
-        <CheckBox
-            android:id="@+id/checkBox2"
+        <Button
+            android:id="@+id/messengerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_weight="1"
-            android:text="Messages" />
+            android:backgroundTint="#6615B6"
+            android:text="Messenger" />
 
-        <CheckBox
-            android:id="@+id/checkBox3"
+        <Button
+            android:id="@+id/facebookButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_weight="1"
+            android:backgroundTint="#0DB0B6"
             android:text="Facebook Messenger" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout5"
-        android:layout_width="412dp"
-        android:layout_height="308dp"
+        android:layout_width="417dp"
+        android:layout_height="217dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,19 +84,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="38dp"
             android:text="Language:"
             android:textColor="#000000"
             android:textSize="20sp"
             app:layout_constraintHeight_percent="60" />
 
-        <Spinner
-            android:id="@+id/languageSpin"
-            android:layout_width="169dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="25dp" />
+        <Button
+            android:id="@+id/changeLanguageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="75dp"
+            android:layout_marginRight="50dp"
+            android:layout_weight="1"
+            android:text="CHANGE LANGUAGE" />
 
     </LinearLayout>
 
