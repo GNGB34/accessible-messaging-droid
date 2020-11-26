@@ -23,9 +23,11 @@ public class NotificationService extends NotificationListenerService  {
     private static final NaturalLanguageService.OUTPUT_STATES off = NaturalLanguageService.OUTPUT_STATES.STOP;
     private static final NaturalLanguageService.OUTPUT_STATES dnd = NaturalLanguageService.OUTPUT_STATES.DO_NOT_DISTURB;
 
+
     private DatabaseReference db;
     private ArrayList<String> arr; //The list of apps with permissions for; will need to keep this information with a user later
 
+    private Setting setting;
     @Override
     public void onCreate() {
         super.onCreate(); //Just default oncreate
@@ -37,6 +39,8 @@ public class NotificationService extends NotificationListenerService  {
 //        arr.add("whatsapp");
 
         //TODO retrieve from the db the user's permissions, add them to a Setting object
+
+
     }
 
 
@@ -99,7 +103,7 @@ public class NotificationService extends NotificationListenerService  {
         String package_name = sbn.getPackageName();
         boolean app = false;
 
-        //TODO loop thru the user Permission object, retrieve the names of apps
+        //TODO loop thru the user Setting object, retrieve the names of apps
 //        for (String s: arr){
 //            if (package_name.contains(s)){
 //                app = true;

@@ -1,16 +1,15 @@
 package com.mana.accessiblemessaging;
 
 import java.util.HashMap;
-import java.util.Locale;
 
 public class Setting {
 
     public static enum Application{
-        INSTAGRAM, FACEBOOK, MESSAGES
+        WHATSAPP, FACEBOOK, MESSAGES
     }
 
 
-    private Locale language;
+    private String language;
     private HashMap<String, Boolean> appPermissions; //All the app permissions, with the name of the app, followed by a boolean value
 
     public Setting(){
@@ -18,7 +17,7 @@ public class Setting {
     }
 
     public Setting(HashMap<String, Boolean > appPermissions, String language){
-        this.language = ;
+        this.language = language;
         this.appPermissions = appPermissions;
     }
 
@@ -27,10 +26,6 @@ public class Setting {
      */
 
     public String getLanguage(){
-        switch (language){
-            case Locale.US:
-                "en";
-        }
         return language;
     }
 
@@ -53,13 +48,35 @@ public class Setting {
     //-------------------Non default implementation--------------
     public void switchLanguage(){
         switch (language){
-            case "Spanish":
-                language = "English";
+            case "es":
+                language = "en";
                 break;
-            case "English":
-                language = "Spanish";
+            case "en":
+                language = "es";
                 break;
         }
+    }
+
+   // public void addPermission()
+
+    public void changePermission(Application app, boolean val){
+        String appName;
+        switch (app){
+            case FACEBOOK:
+                appName = "facebook";
+                break;
+            case MESSAGES:
+                appName = "messaging";
+                break;
+            case WHATSAPP:
+                appName = "whatsapp";
+                break;
+            default:
+                appName = "messaging";
+        }
+
+        appPermissions.put(appName, val);
+
     }
 
 
