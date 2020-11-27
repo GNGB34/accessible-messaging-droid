@@ -1,8 +1,11 @@
 package com.mana.accessiblemessaging;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 
-public class Setting {
+public class Setting implements Parcelable {
 
     public static enum Application{
         WHATSAPP, MESSENGER, MESSAGES
@@ -19,6 +22,38 @@ public class Setting {
     public Setting(HashMap<String, Boolean > appPermissions, String language){
         this.language = language;
         this.appPermissions = appPermissions;
+    }
+
+    /*
+    Parcelable here
+     */
+
+    public Setting(Parcel source) {
+        this.appPermissions = (HashMap<String, Boolean>) source.readSerializable();
+        this.language = source.readString();
+    }
+
+    public static final Parcelable.Creator<Setting> CREATOR = new Parcelable.Creator<Setting>() {
+        @Override
+        public Setting createFromParcel(Parcel source) {
+            return new Setting(source);
+        }
+
+        @Override
+        public Setting[] newArray(int size) {
+            return new Setting[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeSerializable(this.appPermissions);
+        dest.writeString(language);
     }
 
     /*
