@@ -1,4 +1,5 @@
 package com.mana.accessiblemessaging;
+
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Build;
@@ -13,20 +14,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 public class NotificationService extends NotificationListenerService  {
 
-    static boolean runFlag = false; //Use this to manipulate functions of the service since this service cannot be stopped manually; only the OS can do that
-    //Also used in case service gets disconnected by OS without his approval, request a rebind in the onServiceDisconnected()
+
     private static NaturalLanguageService.OUTPUT_STATES state;
     private static final NaturalLanguageService.OUTPUT_STATES on = NaturalLanguageService.OUTPUT_STATES.VOICE;
     private static final NaturalLanguageService.OUTPUT_STATES off = NaturalLanguageService.OUTPUT_STATES.STOP;
     private static final NaturalLanguageService.OUTPUT_STATES dnd = NaturalLanguageService.OUTPUT_STATES.DO_NOT_DISTURB;
 
-
     private DatabaseReference db;
     private ArrayList<String> arr; //The list of apps with permissions for; will need to keep this information with a user later
-
+    private HashMap<String, Boolean> appPerm;
+    private String language;
     private Setting setting;
     @Override
     public void onCreate() {
@@ -38,9 +40,6 @@ public class NotificationService extends NotificationListenerService  {
 //        arr.add("messaging");
 //        arr.add("whatsapp");
 
-        //TODO retrieve from the db the user's permissions, add them to a Setting object
-
-
     }
 
 
@@ -50,23 +49,47 @@ public class NotificationService extends NotificationListenerService  {
     public int onStartCommand(Intent intent, int flags, int startId) {
         //return super.onStartCommand(intent, flags, startId);
 
-        //Check if explicitly want things to stop, if not, will return previous intent (which is active)
-        NaturalLanguageService.OUTPUT_STATES flag =(NaturalLanguageService.OUTPUT_STATES) intent.getSerializableExtra("START");
-        if (flag == on){
-            Log.d("STARTT","we start");
+        //This is if the service is started from the intent, will get the settings needed
+        if (intent.getParcelableExtra("SETTING")!= null){
+            setting = intent.getParcelableExtra("SETTING");
+            language = setting.getLanguage();
+            appPerm = setting.getAppPermissions();
             state = on;
-            return START_NOT_STICKY;  //Keep the service running;
+           // return START_NOT_STICKY;
+        } else if ((NaturalLanguageService.OUTPUT_STATES) intent.getSerializableExtra("START") != null && intent.getParcelableExtra("START_SETTING") != null){ //For when started from the MainActivity
+            //Check if explicitly want things to stop, if not, will return previous intent (which is active)
+            NaturalLanguageService.OUTPUT_STATES flag =(NaturalLanguageService.OUTPUT_STATES) intent.getSerializableExtra("START");
+            setting = intent.getParcelableExtra("START_SETTING");
+            language = setting.getLanguage();
 
-            //Means the functionality (i.e read back to him) should stop cause EXPLICITLY stated by client
-        } else if (flag == dnd){
-            state = dnd;
-            return START_NOT_STICKY;  //Keep the service running;
-        } else {
+            if (flag == on){
+                Log.d("STARTT","we start");
+                state = on;
+              //  return START_NOT_STICKY;  //Keep the service running;
+
+                //TODO currently, no point in DND unless going to push to db messages in the future, and able to retrieve
+                //Means the functionality (i.e read back to him) should stop cause EXPLICITLY stated by client
+            }
+            //else if (flag == dnd){
+//                state = dnd;
+//               // return START_NOT_STICKY;  //Keep the service running;
+//            }
+        }
+
+        else if((NaturalLanguageService.OUTPUT_STATES) intent.getSerializableExtra("START") != null){ //If explictly clicked stop, there will be no settings object
             Log.d("STOP","we stop");
             state = off;
-            //onDestroy();
-            return START_NOT_STICKY;
+            onDestroy();
+            //return START_NOT_STICKY;
         }
+
+        else { //System is doing random things, keep it ON
+            Log.d("STARTT","we start");
+            state = on;
+             //Keep the service running;
+            return START_REDELIVER_INTENT;
+        }
+        return START_NOT_STICKY;
     }
 
 
@@ -110,11 +133,26 @@ public class NotificationService extends NotificationListenerService  {
 //            }
 //        }
 
-        if (state == on && checkScreen() && app == true){
+        //If SOMEHOW, no setting object passed from MainActivity and SettingsActivity, intialize to default. Nothing will happen, but at least default so no crash
+       if (setting == null){
+           HashMap<String, Boolean> defaultAppPermission = new HashMap<>();
+           defaultAppPermission.put("messenger", true);
+           defaultAppPermission.put("messaging", true);
+           defaultAppPermission.put("whatsapp", true);
+           setting = new Setting(defaultAppPermission, "en");
+       }
+
+        Set<String> apps = setting.getAppPermissions().keySet(); //the app names
+        for (String s: apps){
+            if (package_name.contains(s) && setting.getAppPermissions().get(s) == true){
+                app = true;
+            }
+        }
+
+        //Need to do these checks in order to 1) Not crash when null on the getNotification, and 2) send proper info to speak
+        if (state == on && checkScreen() && app == true) {
             title =  sbn.getNotification().extras.getString("android.title");
             text = sbn.getNotification().extras.getString("android.text");
-
-            Log.d("package name:", package_name + "outside of if");
 
             if (title != null && text != null && package_name != null){
                 Log.d("Notification", title);
@@ -135,13 +173,13 @@ public class NotificationService extends NotificationListenerService  {
 //    }
 
     //Need to create A FUNCTION THAT WILL READ THE PERMISSIONS SELECTED
-    //    @Override
-//    public void onDestroy(){
-//        runFlag = false;
-//        Log.d("STOP", "stopp");
-//        super.onDestroy();
-//
-//    }
+        @Override
+    public void onDestroy(){
+        state = off;
+        Log.d("STOP", "stopp");
+        super.onDestroy();
+
+    }
 
     //Screen has to allow for functionality; don't do things while screen is off
     private boolean checkScreen(){

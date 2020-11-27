@@ -8,30 +8,43 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.accessiblemessaging.R;
-import com.example.accessiblemessaging.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.mana.accessiblemessaging.ui.login.LoginActivity;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
     public static NaturalLanguageService.OUTPUT_STATES state;
+    private DatabaseReference db;
     private FirebaseAuth mAuth;
+    private String android_id;
+    private Setting setting;
+    private HashMap<String, Boolean> defaultAppPermission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
         mAuth = FirebaseAuth.getInstance(); //GC
 
         // -------------------- Buttons Connections -------------------------
@@ -153,12 +166,45 @@ public class MainActivity extends AppCompatActivity {
         Intent service = new Intent(getApplicationContext(), NotificationService.class);
         service.putExtra("START", NaturalLanguageService.OUTPUT_STATES.STOP);
         startService(service);  //Using the startService, but passing the STOP state to stop functionality
+        stopService(service); //Not sure if this works
     }
 
     public void startListen(){
         Intent service = new Intent(getApplicationContext(), NotificationService.class);
         service.putExtra("START", NaturalLanguageService.OUTPUT_STATES.VOICE);
-        startService(service);
+        db = FirebaseDatabase.getInstance().getReference(mAuth.getUid() + "/" + android_id);
+
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean settingExist = false; // If the permissions are already there
+                 setting = null;
+                 //Checking in db if there is setting object for this user
+                for (DataSnapshot snapshot1:snapshot.getChildren()){
+                    if (snapshot1.getKey().equals("setting")){
+                        settingExist = true;
+                        setting = (Setting)snapshot1.getValue();
+                    }
+                }
+
+                //if setting does not exist when clicking start, will create it. otherwise, use what was pulled from db
+                 if (settingExist == false){
+                    defaultAppPermission = new HashMap<>();
+                    defaultAppPermission.put("messenger", true);
+                    defaultAppPermission.put("messaging", true);
+                    defaultAppPermission.put("whatsapp", true);
+                    setting = new Setting(defaultAppPermission, "en");
+                     db.child("setting").setValue(setting);
+                 }
+                service.putExtra("START_SETTING", setting);
+                startService(service);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void handleIntent(){
@@ -189,4 +235,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
