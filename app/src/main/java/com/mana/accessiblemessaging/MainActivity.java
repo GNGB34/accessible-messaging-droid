@@ -28,7 +28,6 @@ import com.mana.accessiblemessaging.ui.login.LoginActivity;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -180,10 +179,12 @@ public class MainActivity extends AppCompatActivity {
                 boolean settingExist = false; // If the permissions are already there
                  setting = null;
                  //Checking in db if there is setting object for this user
+
                 for (DataSnapshot snapshot1:snapshot.getChildren()){
                     if (snapshot1.getKey().equals("setting")){
                         settingExist = true;
-                        setting = (Setting)snapshot1.getValue();
+                        Log.d("SETTING", settingExist == false? "stiull null": "became true");
+                        setting = (Setting)snapshot1.getValue(Setting.class);
                     }
                 }
 

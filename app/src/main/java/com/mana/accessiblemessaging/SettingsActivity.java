@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,20 +28,22 @@ public class SettingsActivity extends AppCompatActivity {
     private Button messagesBttn;
     private Button fbmessengerBttn;
     private DatabaseReference db;
-    private Context context = getApplicationContext();
+    private Context context;
     private Setting setting;
     private String android_id;
     private HashMap <String, Boolean> defaultAppPermission;
     private FirebaseAuth mAuth;
-    FirebaseUser currentUser = mAuth.getCurrentUser();
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings2);
-         android_id = Secure.getString(context.getContentResolver(),
+        context =  getApplicationContext();
+        android_id = Secure.getString(context.getContentResolver(),
                 Secure.ANDROID_ID);
-
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
          whatsappBttn = (Button) findViewById(R.id.whatsappButton);
          fbmessengerBttn = (Button) findViewById(R.id.facebookButton);
          messagesBttn = (Button) findViewById(R.id.messagesButton);
@@ -73,18 +76,21 @@ public class SettingsActivity extends AppCompatActivity {
             }
 
             db = FirebaseDatabase.getInstance().getReference(mAuth.getUid() + "/" + android_id);
-            db.addValueEventListener(new ValueEventListener() {
+            db.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     boolean settingExist = false; // If the permissions are already there
+
+                    Log.d("CHECK", "made it");
                     for (DataSnapshot snapshot1:dataSnapshot.getChildren()){
                         if (snapshot1.getKey().equals("setting")){
                             settingExist = true;
-                            setting = (Setting)snapshot1.getValue();
+                            setting = (Setting)snapshot1.getValue(Setting.class);
                         }
                     }
 
                     //checking if the setting object already exsits in db, and if it does, just change the settings as needed
+                    //TODO GABE NEEDS TO CREATE THIS DEFAULT when registering
                     if (settingExist == true){
                         setting.changePermission(app);
                     } else{
@@ -99,6 +105,7 @@ public class SettingsActivity extends AppCompatActivity {
                     db.child("setting").setValue(setting);
                     Intent intent = new Intent(context, NotificationService.class);
                     intent.putExtra("SETTING", setting);
+                    Log.d("SERVICE_START", "starging service");
                     startService(intent);
                 }
                 @Override
