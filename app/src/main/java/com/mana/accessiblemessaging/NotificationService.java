@@ -30,6 +30,7 @@ public class NotificationService extends NotificationListenerService  {
     private HashMap<String, Boolean> appPerm;
     private String language;
     private Setting setting;
+    private NaturalLanguageService nls;
     @Override
     public void onCreate() {
         super.onCreate(); //Just default oncreate
@@ -39,6 +40,8 @@ public class NotificationService extends NotificationListenerService  {
 //        arr.add("instagram");
 //        arr.add("messaging");
 //        arr.add("whatsapp");
+        nls = new NaturalLanguageService(on);
+        nls.initialize();
 
     }
 
@@ -119,10 +122,10 @@ public class NotificationService extends NotificationListenerService  {
     @RequiresApi(api = Build.VERSION_CODES.R)
     public void onNotificationPosted (StatusBarNotification sbn){
         //TODO PUT HERE OTHER FUNCTIONS IN IF STATEMENT SUCH AS CLOUD TRANSLATION
-        NaturalLanguageService nls;
         NotificationWrapper nw;
         String title;
         String text;
+        String appName = null;
         String package_name = sbn.getPackageName();
         boolean app = false;
 
@@ -134,6 +137,7 @@ public class NotificationService extends NotificationListenerService  {
 //        }
 
         //If SOMEHOW, no setting object passed from MainActivity and SettingsActivity, intialize to default. Nothing will happen, but at least default so no crash
+        //Redudency checks
        if (setting == null){
            HashMap<String, Boolean> defaultAppPermission = new HashMap<>();
            defaultAppPermission.put("messenger", true);
@@ -146,6 +150,7 @@ public class NotificationService extends NotificationListenerService  {
         for (String s: apps){
             if (package_name.contains(s) && setting.getAppPermissions().get(s) == true){
                 app = true;
+                appName = s;
             }
         }
 
@@ -153,26 +158,21 @@ public class NotificationService extends NotificationListenerService  {
         if (state == on && checkScreen() && app == true) {
             title =  sbn.getNotification().extras.getString("android.title");
             text = sbn.getNotification().extras.getString("android.text");
+            Log.d("Notification", title);
+            Log.d("Notification:", text);
+            Log.d("package name:", package_name + "this is package name");
+            nw = new NotificationWrapper(appName,title,text,false);
+            //TODO add in NLS service here
+//            nls.switchLanguage(nls.translateLanguageCode(setting.getLanguage()));
+//            nls.detectLanguageCode(nw);
+//            app = false;
 
-            if (title != null && text != null && package_name != null){
-                Log.d("Notification", title);
-                Log.d("Notification:", text);
-                Log.d("package name:", package_name + "this is package name");
-                nw = new NotificationWrapper(package_name,title,text,false);
-                //TODO add in NLS service here
 
-            }
         } else if (state == dnd  && app == true){
             //TODO was meant to be done if notifications can be read from firebase back to user via activiating google assistant
         }
     }
 
-//    public void setState(){
-//
-//
-//    }
-
-    //Need to create A FUNCTION THAT WILL READ THE PERMISSIONS SELECTED
         @Override
     public void onDestroy(){
         state = off;
