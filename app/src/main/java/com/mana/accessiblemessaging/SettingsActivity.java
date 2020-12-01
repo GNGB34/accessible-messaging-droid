@@ -27,6 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
     private Button whatsappBttn;
     private Button messagesBttn;
     private Button fbmessengerBttn;
+    private Button languageBttn;
     private DatabaseReference db;
     private Context context;
     private Setting setting;
@@ -47,11 +48,12 @@ public class SettingsActivity extends AppCompatActivity {
          whatsappBttn = (Button) findViewById(R.id.whatsappButton);
          fbmessengerBttn = (Button) findViewById(R.id.facebookButton);
          messagesBttn = (Button) findViewById(R.id.messagesButton);
+        languageBttn = (Button) findViewById(R.id.changeLanguageButton);
 
          whatsappBttn.setOnClickListener(listener);
          fbmessengerBttn.setOnClickListener(listener);
          messagesBttn.setOnClickListener(listener);
-
+        languageBttn.setOnClickListener(langListener);
 
     }
 
@@ -114,6 +116,55 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
 
+        }
+    };
+
+
+    View.OnClickListener langListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            db = FirebaseDatabase.getInstance().getReference(mAuth.getUid() + "/" + android_id);
+            db.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    boolean settingExist = false; // If the permissions are already there
+
+                    Log.d("CHECK", "made it");
+                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
+                        if (snapshot1.getKey().equals("setting")) {
+                            settingExist = true;
+                            setting = snapshot1.getValue(Setting.class);
+                        }
+                    }
+
+                    //checking if the setting object already exsits in db, and if it does, just change the settings as needed
+                    //TODO GABE NEEDS TO CREATE THIS DEFAULT when registering
+                    if (settingExist == true) {
+                        setting.switchLanguage();
+                    } else {
+                        defaultAppPermission = new HashMap<>();
+                        defaultAppPermission.put("messenger", true);
+                        defaultAppPermission.put("messaging", true);
+                        defaultAppPermission.put("whatsapp", true);
+                        setting = new Setting(defaultAppPermission, "en");
+                        setting.switchLanguage();
+                    }
+
+                    //Set the value in the db, and pass the information to the service, starting it if need be
+                    if (settingExist == true) {
+                        db.child("setting").setValue(setting);
+                    }
+                    Intent intent = new Intent(context, NotificationService.class);
+                    intent.putExtra("SETTING", setting);
+                    Log.d("SERVICE_START", "starging service");
+                    startService(intent);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
     };
 }

@@ -1,6 +1,7 @@
 package com.mana.accessiblemessaging;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.PowerManager;
@@ -31,17 +32,19 @@ public class NotificationService extends NotificationListenerService  {
     private String language;
     private Setting setting;
     private NaturalLanguageService nls;
+    private Context context;
     @Override
     public void onCreate() {
         super.onCreate(); //Just default oncreate
         db = FirebaseDatabase.getInstance().getReference();
+        context = getApplicationContext();
 //        arr = new ArrayList<>();
 //        arr.add("facebook");
 //        arr.add("instagram");
 //        arr.add("messaging");
 //        arr.add("whatsapp");
         nls = new NaturalLanguageService(on);
-        nls.initialize();
+        nls.initialize(context);
 
     }
 
@@ -161,11 +164,12 @@ public class NotificationService extends NotificationListenerService  {
             Log.d("Notification", title);
             Log.d("Notification:", text);
             Log.d("package name:", package_name + "this is package name");
-            nw = new NotificationWrapper(appName,title,text,false);
+            String time = Long.toString(System.currentTimeMillis());
+            nw = new NotificationWrapper(appName,title,text,time,false);
             //TODO add in NLS service here
-//            nls.switchLanguage(nls.translateLanguageCode(setting.getLanguage()));
-//            nls.detectLanguageCode(nw);
-//            app = false;
+            nls.switchLanguage(nls.translateLanguageCode(setting.getLanguage()));
+            nls.detectLanguageCode(nw);
+            app = false;
 
 
         } else if (state == dnd  && app == true){

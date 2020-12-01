@@ -2,30 +2,19 @@ package com.mana.accessiblemessaging.data;
 
 import android.content.res.Resources;
 import android.os.Build;
-import android.provider.Settings;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
-import com.example.accessiblemessaging.NotificationWrapper;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.collection.ImmutableSortedMap;
+import com.mana.accessiblemessaging.Setting;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.Executor;
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
@@ -61,13 +50,13 @@ public class LoginDataSource {
                             apps.put("messenger", true);
                             apps.put("whatsapp", true);
 
-                            PermissionsWrapper newAccountPermissions = new PermissionsWrapper();
-                            newAccountPermissions.setApps(apps);
-                            newAccountPermissions.setLanguage("en");
+                            Setting newAccountPermissions = new Setting(apps, "en");
+                            //newAccountPermissions.setApps(apps);
+                            //newAccountPermissions.setLanguage("en");
 
-                            DataWrapper newAccountSettingsWrapper = new DataWrapper();
-                            newAccountSettingsWrapper.setPermissions(newAccountPermissions);
-                            newAccountSettingsWrapper.setNotifications(new HashMap<String, NotificationWrapper>());
+                            //DataWrapper newAccountSettingsWrapper = new DataWrapper();
+                            //newAccountSettingsWrapper.setPermissions(newAccountPermissions);
+                            //newAccountSettingsWrapper.setNotifications(new HashMap<String, NotificationWrapper>());
                             //end of static implementation of user-data in the wrapper object
 
                             //we are creating a new hashmap which takes an Object-value, this is to mimic a json-sheet used by the Firebase Database
@@ -75,7 +64,7 @@ public class LoginDataSource {
                             while (mAuth.getCurrentUser() == null) {
                                 //fucking asynchronous bullshit, burn in here till it is updated
                             }
-                            newAccountBranch.put(mAuth.getCurrentUser().getUid(), newAccountSettingsWrapper); //we use the UiD of the device as the reference to this new embedded json sheet
+                            newAccountBranch.put(mAuth.getCurrentUser().getUid(), newAccountPermissions); //we use the UiD of the device as the reference to this new embedded json sheet
                             reference.updateChildren(newAccountBranch);
                         }
                     });
