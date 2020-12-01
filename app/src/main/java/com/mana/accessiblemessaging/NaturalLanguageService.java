@@ -12,6 +12,7 @@
 
 package com.mana.accessiblemessaging;
 
+import android.content.Context;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -56,8 +57,8 @@ public class NaturalLanguageService {
 
     // ----------------   Builder Class   -----------------
 
-    public void initialize() {
-        controller = new TextToSpeech(null, new TextToSpeech.OnInitListener() {
+    public void initialize(Context context) {
+        controller = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 switch (status) {
@@ -75,6 +76,7 @@ public class NaturalLanguageService {
 
     public void switchLanguage(Locale newLanguage) {
         int status = controller.setLanguage(newLanguage);
+        language = newLanguage;
         switch (status) {
             case TextToSpeech.LANG_MISSING_DATA:
                 Log.d("VOICESERVICE", "Voice Service - Language Missing Data : When trying to change language.");
@@ -87,15 +89,18 @@ public class NaturalLanguageService {
         }
     }
 
-    private Locale translateLanguageCode(String languageIdentifier) {
+    public Locale translateLanguageCode(String languageIdentifier) {
         switch (languageIdentifier) {
             case "en":
                 return Locale.US;
             case "fr":
                 return Locale.FRENCH;
+            case "es":
+                return new Locale("es", "ES");
             default:
-                //TODO - Implement more languages, specifically spanish as requested by the client
-                return null;
+                //this will handle less-common languages such as Spanish (requested by the client) that do not have pre-set constants defined within
+                //the JVM environment -> it is possible that this can crash if we feed in a languageIdentifier not supported
+                return new Locale(languageIdentifier);
         }
     }
 
@@ -181,7 +186,7 @@ public class NaturalLanguageService {
     }
 
     public void detectLanguageCode(NotificationWrapper wrapper) {
-
+        Log.d("CheckNUll", language == null ? "null": "we good");
         //If we are in DO NOT DISTURB we don't want anything to read or waste CPU time
         if (state == OUTPUT_STATES.DO_NOT_DISTURB) return;
 
@@ -191,6 +196,8 @@ public class NaturalLanguageService {
                         new OnSuccessListener<String>() {
                             @Override
                             public void onSuccess(@Nullable String languageCode) {
+                                Log.d("LAN_CODE", languageCode);
+
                                 if (languageCode.equals("und")) {
                                     Log.d("VOICESERVICE", "Voice Service - Language Not Discoverable : When trying to determine the language.");
                                 }
@@ -200,7 +207,7 @@ public class NaturalLanguageService {
                                 }
                                 else {
                                     //
-                                    translatePlaintext(languageCode, languageCode, wrapper);
+                                    translatePlaintext(languageCode, language.getLanguage(), wrapper);
                                     Log.d("VOICESERVICE", "Voice Service - Successfully Changed language");
                                 }
                             }

@@ -10,16 +10,17 @@ package com.mana.accessiblemessaging;
 
 public class NotificationWrapper {
 
-    private String application, sender, text;
+    private String application, sender, text, time;
     private boolean read;
 
     public NotificationWrapper() {
     }
 
-    public NotificationWrapper(String application, String sender, String text, boolean read) {
+    public NotificationWrapper(String application, String sender, String text, String time, boolean read) {
         this.application = application;
         this.sender = sender;
         this.text = text;
+        this.time = time;
         this.read = read;
     }
 
@@ -35,6 +36,8 @@ public class NotificationWrapper {
     public String getSender() { return sender; }
 
     public String getText() { return text; }
+
+    public String getTime() { return time; }
 
     public boolean isRead() { return read; }
 
