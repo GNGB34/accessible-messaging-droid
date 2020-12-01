@@ -43,9 +43,9 @@ public class LoginRepository {
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    public Result<FirebaseUser> login(String username, String password) {
+    public Result<FirebaseUser> login(String username, String password, String loginID) {
         // handle login
-        Result<FirebaseUser> result = dataSource.login(username, password);
+        Result<FirebaseUser> result = dataSource.login(username, password, loginID);
         if (result instanceof Result.Success) {
             setLoggedInUser(((Result.Success<FirebaseUser>) result).getData());
         }
