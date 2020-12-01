@@ -29,9 +29,9 @@ public class LoginViewModel extends ViewModel {
         return loginResult;
     }
 
-    public void login(String username, String password) {
+    public void login(String username, String password, String androidID) {
         // can be launched in a separate asynchronous job
-        Result<FirebaseUser> result = loginRepository.login(username, password);
+        Result<FirebaseUser> result = loginRepository.login(username, password, androidID);
 
         if (result instanceof Result.Success) {
             FirebaseUser data = ((Result.Success<FirebaseUser>) result).getData();

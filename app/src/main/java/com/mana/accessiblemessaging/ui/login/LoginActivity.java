@@ -1,7 +1,9 @@
 package com.mana.accessiblemessaging.ui.login;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -98,18 +100,19 @@ public class LoginActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
+                            passwordEditText.getText().toString(), null); //TODO - pleaseeee change this, the null is suppose to be a deviceID, quick shitty code fix
                 }
                 return false;
             }
         });
 
+        final ContentResolver loginPageContext = getContentResolver();
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                        passwordEditText.getText().toString(), Settings.Secure.getString(loginPageContext, Settings.Secure.ANDROID_ID));
             }
         });
     }
