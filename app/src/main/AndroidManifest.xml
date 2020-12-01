@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.accessiblemessaging">
+    package="com.mana.accessiblemessaging">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Accessible Messaging"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AccessibleMessaging">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/actions" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login">
         </activity>
-        <activity android:name=".Settings" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.mana.accessiblemessaging.SettingsActivity" />
+        <activity android:name="com.mana.accessiblemessaging.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="accessiblemessaging"
+                    android:host="mainpage" />
             </intent-filter>
         </activity>
 
         <service
-            android:name=".NotificationService"
+            android:name="com.mana.accessiblemessaging.NotificationService"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
