@@ -33,6 +33,8 @@ public class NotificationService extends NotificationListenerService  {
     private Setting setting;
     private NaturalLanguageService nls;
     private Context context;
+    NotificationWrapper nw;
+
     @Override
     public void onCreate() {
         super.onCreate(); //Just default oncreate
@@ -55,21 +57,31 @@ public class NotificationService extends NotificationListenerService  {
     public int onStartCommand(Intent intent, int flags, int startId) {
         //return super.onStartCommand(intent, flags, startId);
 
+        if (intent == null){
+            Log.d("STARTT","we start");
+            state = on;
+            //Keep the service running;
+            return START_STICKY;
+        }
+
         //This is if the service is started from the intent, will get the settings needed
         if (intent.getParcelableExtra("SETTING")!= null){
             setting = intent.getParcelableExtra("SETTING");
             language = setting.getLanguage();
             appPerm = setting.getAppPermissions();
             state = on;
-           // return START_NOT_STICKY;
+            return START_NOT_STICKY;
         } else if ((NaturalLanguageService.OUTPUT_STATES) intent.getSerializableExtra("START") != null && intent.getParcelableExtra("START_SETTING") != null){ //For when started from the MainActivity
             //Check if explicitly want things to stop, if not, will return previous intent (which is active)
             NaturalLanguageService.OUTPUT_STATES flag =(NaturalLanguageService.OUTPUT_STATES) intent.getSerializableExtra("START");
-            setting = intent.getParcelableExtra("START_SETTING");
-            language = setting.getLanguage();
+//            setting = intent.getParcelableExtra("START_SETTING");
+//            language = setting.getLanguage();
 
             if (flag == on){
                 Log.d("STARTT","we start");
+//                nw = new NotificationWrapper("Accessible Messaging", "Announcement", "Hello! Turned on", "0", false);
+//                nls.switchLanguage(nls.translateLanguageCode(setting.getLanguage()));
+//                nls.detectLanguageCode(nw);
                 state = on;
               //  return START_NOT_STICKY;  //Keep the service running;
 
@@ -84,6 +96,9 @@ public class NotificationService extends NotificationListenerService  {
 
         else if((NaturalLanguageService.OUTPUT_STATES) intent.getSerializableExtra("START") != null){ //If explictly clicked stop, there will be no settings object
             Log.d("STOP","we stop");
+            nw = new NotificationWrapper("Accessible Messaging", "Announcement", "turned off. Goodbye!", "0", false);
+            nls.switchLanguage(nls.translateLanguageCode(setting.getLanguage()));
+            nls.detectLanguageCode(nw);
             state = off;
             onDestroy();
             //return START_NOT_STICKY;
@@ -125,7 +140,6 @@ public class NotificationService extends NotificationListenerService  {
     @RequiresApi(api = Build.VERSION_CODES.R)
     public void onNotificationPosted (StatusBarNotification sbn){
         //TODO PUT HERE OTHER FUNCTIONS IN IF STATEMENT SUCH AS CLOUD TRANSLATION
-        NotificationWrapper nw;
         String title;
         String text;
         String appName = null;

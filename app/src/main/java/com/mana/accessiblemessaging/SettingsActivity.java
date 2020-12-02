@@ -7,6 +7,7 @@ import android.provider.Settings.Secure;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +36,8 @@ public class SettingsActivity extends AppCompatActivity {
     private HashMap <String, Boolean> defaultAppPermission;
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
+    private NaturalLanguageService nls; //to make announcements
+    private NotificationWrapper nw;     //to make announcements, we use this
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,8 @@ public class SettingsActivity extends AppCompatActivity {
          fbmessengerBttn.setOnClickListener(listener);
          messagesBttn.setOnClickListener(listener);
         languageBttn.setOnClickListener(langListener);
+        nls = new NaturalLanguageService(NaturalLanguageService.OUTPUT_STATES.VOICE);
+        nls.initialize(context);
 
     }
 
@@ -63,17 +68,23 @@ public class SettingsActivity extends AppCompatActivity {
             button = (Button) v;
             String appName = button.getText().toString().toLowerCase();
             Setting.Application app;
+            String announcement = "Announcement";
+            final String appString;    //The name of the apps as used in this Notification system; DIFFERENT FROM THE BUTTON
             switch (appName){
                 case "messages":
                     app = Setting.Application.MESSAGES;
+                    appString = "messaging";
                     break;
                 case "facebook messenger":
                     app = Setting.Application.MESSENGER;
+                    appString = "messenger";
                     break;
                 case "whatsapp":
                     app = Setting.Application.WHATSAPP;
+                    appString =  "whatsapp";
                     break;
                 default:
+                    appString = "messaging";
                     app = Setting.Application.MESSAGES;
             }
 
@@ -95,16 +106,27 @@ public class SettingsActivity extends AppCompatActivity {
                     //TODO GABE NEEDS TO CREATE THIS DEFAULT when registering
                     if (settingExist == true){
                         setting.changePermission(app);
+                        db.child("setting").setValue(setting);
                     } else{
                         defaultAppPermission = new HashMap<>();
                         defaultAppPermission.put("messenger", true);
                         defaultAppPermission.put("messaging", true);
                         defaultAppPermission.put("whatsapp", true);
                         setting = new Setting(defaultAppPermission, "en");
+                        setting.changePermission(app);
                     }
 
+                    Log.d("APPNAME", appString);
+                    if (setting.getAppPermissions().get(appString) == true){
+                        nw = new NotificationWrapper(appName, "Announcement", "turned on", "0", false);
+                    } else{
+                        nw = new NotificationWrapper(appName, "Announcement", "turned off", "0", false);
+                    }
+
+                    nls.switchLanguage(nls.translateLanguageCode(setting.getLanguage()));
+                    nls.detectLanguageCode(nw);
+
                     //Set the value in the db, and pass the information to the service, starting it if need be
-                    db.child("setting").setValue(setting);
                     Intent intent = new Intent(context, NotificationService.class);
                     intent.putExtra("SETTING", setting);
                     Log.d("SERVICE_START", "starging service");
@@ -138,9 +160,11 @@ public class SettingsActivity extends AppCompatActivity {
                     }
 
                     //checking if the setting object already exsits in db, and if it does, just change the settings as needed
+                    //Push the change to firebase
                     //TODO GABE NEEDS TO CREATE THIS DEFAULT when registering
                     if (settingExist == true) {
                         setting.switchLanguage();
+                        db.child("setting").setValue(setting);
                     } else {
                         defaultAppPermission = new HashMap<>();
                         defaultAppPermission.put("messenger", true);
@@ -150,10 +174,16 @@ public class SettingsActivity extends AppCompatActivity {
                         setting.switchLanguage();
                     }
 
-                    //Set the value in the db, and pass the information to the service, starting it if need be
-                    if (settingExist == true) {
-                        db.child("setting").setValue(setting);
+                    if (setting.getLanguage().equals("es")){
+                        nw = new NotificationWrapper("language", "Announcement", "Now Spanish", "0", false);
+                    } else {
+                        nw = new NotificationWrapper("language", "Announcement", "Now English", "0", false);
                     }
+
+                    nls.switchLanguage(nls.translateLanguageCode(setting.getLanguage()));
+                    nls.detectLanguageCode(nw);
+                    Toast.makeText(context, "changed settings", Toast.LENGTH_SHORT).show();
+
                     Intent intent = new Intent(context, NotificationService.class);
                     intent.putExtra("SETTING", setting);
                     Log.d("SERVICE_START", "starging service");
