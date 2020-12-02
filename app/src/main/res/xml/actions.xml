@@ -1,4 +1,5 @@
 <?xml version ="1.0" encoding ="utf-8"?><!--  Learn More about how to use App Actions: https://developer.android.com/guide/actions/index.html -->
+
 <actions>
 <!--    <action intentName ="custom.actions.intent.NotificationsService"> queryPatterns ="@array/NotificationQueries-->
 <!--    <parameter intentParameter ="text" name = "text" type ="https://schema.org/Text"/>-->
@@ -9,38 +10,23 @@
 
 <!--    <action intentName ="custom.actions.intent.NotificationsService"> queryPatterns ="@array/NotificationQueries-->
 <!--    <fulfillment urlFirebase ="https://accessibilitymessaging.firebasio.com"/>-->
+<action intentName="actions.intent.OPEN_APP_FEATURE">
+    <!--        <fulfillment urlTemplate = "accessiblemessaging://mainpage/start"/>-->
+    <fulfillment urlTemplate ="https://accessiblemesseging.page.link/open(?featureName)">
+        <parameter-mapping
+            intentParmater = "feature"
+            urllParameter = "featureName"/>
+    </fulfillment>
+    <parameter name = "feature">
+        <entity-set-reference enetitySetId = "FeatureEntitySet"/>
+    </parameter>
+</action>
 
-<!--    </action>-->
+<entity-set entitySetId = "featureEntitySet">
 
-    <action intentName="actions.intent.OPEN_APP_FEATURE">
-<!--        <fulfillment urlTemplate = "accessiblemessaging://mainpage/start"/>-->
-        <fulfillment urlTemplate="{@url}" />
-        <parameter name = "feature">
-            <entity-set-reference entitySetId = "featureParamEntitySet"/>
-        </parameter>
-    </action>
+    <entity
+        name ="main" identifier="main"/>
+    <entity name ="Settings" identifier="Settings"/>
+</entity-set>
 
-    <entity-set entitySetId = "featureParamEntitySet">
-
-        <entity url = "accessiblemessaging://mainpage/start" name="start"/>
-        <entity url = "accessiblemessaging://mainpage/stop" name="stop"/>
-    </entity-set>
-
-<!--    <action >-->
-<!--        <fulfillment urlTemplate = "accessiblemessaging://mainpage/stop"/>-->
-<!--    </action>-->
-    <!--    Example Action -->
-    <!--    <action intentName="Intent name (actions.intent.*)"> -->
-    <!--        <action-display -->
-    <!--            icon="@mipmap/..." -->
-    <!--            labelTemplate="@array/..." /> -->
-    <!--        <fulfillment urlTemplate="Action content URI or URL"> -->
-    <!--            <parameter-mapping -->
-    <!--                intentParameter="Parameter name in Intent URI" -->
-    <!--                urlParameter="Parameter name in URL" /> -->
-    <!--        </fulfillment> -->
-    <!--    </action> -->
 </actions>
-
-
-

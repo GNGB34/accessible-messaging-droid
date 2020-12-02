@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
@@ -48,7 +50,22 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        FirebaseDynamicLinks.getInstance().getDynamicLink(getIntent()).addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+            @Override
+            public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+                Log.i("Main Activity","We have a dynamic link!");
+                Uri deepLink = null;
+                if (pendingDynamicLinkData!=null){
+                    deepLink = pendingDynamicLinkData.getLink();
+                }
+                if (deepLink!=null){
+                    Log.i("MainActivity","Here's the deep link URL:\n"+deepLink.toString());
+                    String currentPage = deepLink.getQueryParameter("Settings");
+                    int currPage = Integer.parseInt(currentPage);
 
+                }
+            }
+        });
         handleIntent();
 
     }
@@ -110,4 +127,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-}
+    private void navigatetoActivity(String featureType) {
+        if (featureType == "Settings") {
+            Intent settings = new Intent(this, SettingsActivity.class);
+            startActivity(settings);
+        }
+    }
+    }
