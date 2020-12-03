@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.button);
         Button stop = (Button) findViewById(R.id.stop);
         Button settings=(Button) findViewById(R.id.settings);
+        Button login=(Button) findViewById(R.id.loginButton);
+        Button logout=(Button) findViewById(R.id.logoutButton);
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +74,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 openSettings();
 
+            }
+        });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLogin();
             }
         });
 

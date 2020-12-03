@@ -7,68 +7,15 @@
     android:layout_gravity="center"
     tools:context=".MainActivity">
 
-    <Switch
-        android:id="@+id/doNotDisturb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:text="Do Not Disturb"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="30"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="164dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="308dp"
-        android:backgroundTint="#3386E1"
-        android:gravity="center"
-        android:text="start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/stop"
-        android:layout_width="164dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="113dp"
-        android:layout_marginBottom="152dp"
-        android:backgroundTint="#F10808"
-        android:gravity="center"
-        android:text="stop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
-
-    <Button
-        android:id="@+id/settings"
-        android:layout_width="120dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="149dp"
-        android:layout_marginEnd="152dp"
-        android:layout_marginBottom="64dp"
-        android:shadowColor="#FFFFFF"
-        android:text="SETTINGS"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/doNotDisturb"
-        app:layout_constraintVertical_bias="0.869"
-        app:strokeColor="#3C3F41" />
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/linearLayout"
+        android:layout_width="397dp"
+        android:layout_height="102dp"
         android:gravity="right"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/loginOrRegister"
@@ -88,6 +35,100 @@
             android:layout_marginTop="25dp"
             android:layout_marginBottom="654dp"
             tools:srcCompat="@tools:sample/avatars" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="393dp"
+        android:layout_height="489dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="17dp" />
+
+        <Switch
+            android:id="@+id/doNotDisturb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="233dp"
+            android:text="Do Not Disturb"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="30"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="52dp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="164dp"
+            android:layout_height="82dp"
+            android:layout_marginStart="125dp"
+            android:backgroundTint="#3386E1"
+            android:gravity="center"
+            android:text="start" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="67dp" />
+
+        <Button
+            android:id="@+id/stop"
+            android:layout_width="164dp"
+            android:layout_height="82dp"
+            android:layout_marginStart="125dp"
+            android:backgroundTint="#F10808"
+            android:gravity="center"
+            android:text="stop" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="60dp" />
+
+        <Button
+            android:id="@+id/settings"
+            android:layout_width="120dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="149dp"
+            android:layout_marginEnd="152dp"
+            android:layout_marginBottom="64dp"
+            android:shadowColor="#FFFFFF"
+            android:text="SETTINGS"
+            app:strokeColor="#3C3F41" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="404dp"
+        android:layout_height="105dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#3386E1"
+            android:text="LOGIN/REGISTER" />
+
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#F10808"
+            android:text="LOGOUT" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
