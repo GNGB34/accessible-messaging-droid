@@ -14,18 +14,17 @@
     <!--        <fulfillment urlTemplate = "accessiblemessaging://mainpage/start"/>-->
     <fulfillment urlTemplate ="https://accessiblemesseging.page.link/open(?featureName)">
         <parameter-mapping
-            intentParmater = "feature"
-            urllParameter = "featureName"/>
+            intentParameter = "feature"
+            urlParameter = "featureName"/>
     </fulfillment>
     <parameter name = "feature">
-        <entity-set-reference enetitySetId = "FeatureEntitySet"/>
+        <entity-set-reference entitySetId = "FeatureEntitySet"/>
     </parameter>
 </action>
 
 <entity-set entitySetId = "featureEntitySet">
 
-    <entity
-        name ="main" identifier="main"/>
+    <entity name ="main" identifier="main"/>
     <entity name ="Settings" identifier="Settings"/>
 </entity-set>
 
