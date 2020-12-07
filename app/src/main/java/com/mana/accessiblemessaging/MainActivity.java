@@ -83,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
                 openLogin();
             }
         });
+        
+        logout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {mAuth.getInstance().signOut();}
+        });
 
         handleIntent();
 
